@@ -1,0 +1,266 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="page-header"><i class="fa fa-laptop"></i>总览</h3>
+
+    </div>
+</div>
+
+
+<div class="row">
+
+
+    <div class="col-md-3">
+        <style>
+            .fa-facebook:before {
+                content: "今日统计";
+            }
+
+            .fa-twitter:before {
+                content: "本月统计";
+            }
+
+            .fa-linkedin:before {
+                content: "年度统计";
+            }
+
+            .fa-google-plus:before {
+                content: "历史统计";
+            }
+        </style>
+        <div class="social-box facebook">
+            <i class="fa fa-facebook"></i>
+            <ul style="border-top: 1px #ccc solid;">
+                <li>
+                    <strong>256k</strong>
+                    <span>收入账单数量</span>
+                </li>
+                <li>
+                    <strong>359</strong>
+                    <span>支出账单数量</span>
+                </li>
+            </ul>
+        </div>
+        <!--/social-box-->
+
+    </div>
+    <!--/col-->
+
+    <div class="col-md-3">
+
+        <div class="social-box twitter">
+            <i class="fa fa-twitter"></i>
+            <ul>
+                <li>
+                    <strong>1562k</strong>
+                    <span>收入账单数量</span>
+                </li>
+                <li>
+                    <strong>2562</strong>
+                    <span>支出账单数量</span>
+                </li>
+            </ul>
+        </div>
+        <!--/social-box-->
+
+    </div>
+    <!--/col-->
+
+    <div class="col-md-3">
+
+        <div class="social-box linkedin">
+            <i class="fa fa-linkedin"></i>
+            <ul>
+                <li>
+                    <strong>8926</strong>
+                    <span>收入账单数量</span>
+                </li>
+                <li>
+                    <strong>6253</strong>
+                    <span>支出账单数量</span>
+                </li>
+            </ul>
+        </div>
+        <!--/social-box-->
+
+    </div>
+    <!--/col-->
+
+    <div class="col-md-3">
+
+        <div class="social-box google-plus">
+            <i class="fa fa-google-plus"></i>
+            <ul>
+                <li>
+                    <strong>962</strong>
+                    <span>收入账单数量</span>
+                </li>
+                <li>
+                    <strong>256</strong>
+                    <span>支出账单数量</span>
+                </li>
+            </ul>
+        </div>
+        <!--/social-box-->
+
+    </div>
+    <!--/col-->
+
+</div>
+<!--/row-->
+<div class="row">
+    <div class="col-lg-6 col-md-12">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2><i class="fa fa-spinner red"></i><strong>近期账单</strong></h2>
+                <div class="panel-actions">
+                    <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                    <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+                    <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
+                </div>
+                <ul class="nav nav-tabs" id="recent">
+                    <li class="active"><a href="index.html#tasks">支出</a></li>
+                    <li><a href="index.html#tickets">收入</a></li>
+                </ul>
+            </div>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tasks" style="min-height: 290px;">
+                        <table class="table bootstrap-datatable datatable small-font">
+                            <thead>
+                                <tr>
+                                    <th>消费对象</th>
+                                    <th>消费金额</th>
+                                    <th>消费时间</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-12">
+
+        <div class="panel panel-default">
+
+            <div class="panel-body text-center" style="height:347px">
+                <h2 class="lime">Sold Out</h2>
+                <div style="width:300px;left:50%;position:absolute;margin-left:-150px;">
+                    <canvas id="gauge1"></canvas>
+                </div>
+                <span class="pull-left"><strong class="blue">$256.256,25</strong></span>
+                <span class="pull-right"><i class="fa fa-arrow-circle-o-up text-success"></i> 52%</span>
+            </div>
+
+        </div>
+
+    </div><!--/.col-->
+
+    <div class="col-lg-3 col-md-12">
+
+        <div class="panel panel-default">
+
+            <div class="panel-body text-center" style="height:347px">
+                <h2 class="lime">Profit</h2>
+                <div style="width:300px;left:50%;position:absolute;margin-left:-150px;">
+                    <canvas id="gauge2"></canvas>
+                </div>
+                <span class="pull-left"><strong class="blue">$125.365,56</strong></span>
+                <span class="pull-right"><i class="fa fa-arrow-circle-o-up text-success"></i> 70%</span>
+            </div>
+
+        </div>
+
+    </div><!--/.col-->
+</div>
+<div class="row">
+
+    <div class="col-lg-9 col-md-12">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2><i class="fa fa-bar-chart-o red"></i><strong>xCharts</strong></h2>
+                <div class="panel-actions">
+                    <a href="charts-xcharts.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                    <a href="charts-xcharts.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+                    <a href="charts-xcharts.html#" class="btn-close"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <figure class="demo" id="chart" style="height: 300px"></figure>
+            </div>
+        </div>
+
+    </div><!--/col-->
+    <div class="col-lg-3 col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body white-bg">
+                <br />
+                <div class="graph-container text-center">
+                    <div id="hero-donut" class="graph" style="height:315px;"></div>
+                </div>
+            </div>
+        </div>
+    </div><!--/.col-->
+</div><!--/row-->
+@*
+    <div class="row">
+
+        <div class="col-lg-4 col-md-12">
+            <div class="panel panel-default calendar" style="padding-bottom:30px;">
+                <div class="calendar-small"></div>
+            </div>
+        </div><!--/col-->
+
+        <div class="col-lg-8 col-md-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2><i class="fa fa-check red"></i><strong>To Do</strong></h2>
+                    <div class="panel-actions">
+                        <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                        <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+                        <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <div class="panel-body no-padding">
+                    <div class="todo-list">
+                        <div class="header">Today</div>
+                        <ul id="todo-2" class="todo-list-tasks">
+                            <li>
+                                <label class="custom-checkbox-item pull-left">
+                                    <input class="custom-checkbox" type="checkbox" />
+                                    <span class="custom-checkbox-mark"></span>
+                                </label>
+                                <span class="desc">Add slider home to creative template</span>
+                            </li>
+                            <li>
+                                <label class="custom-checkbox-item pull-left">
+                                    <input class="custom-checkbox" type="checkbox" />
+                                    <span class="custom-checkbox-mark"></span>
+                                </label>
+                                <span class="desc">Change portfolio image with new animation</span>
+                            </li>
+                            <li>
+                                <label class="custom-checkbox-item pull-left">
+                                    <input class="custom-checkbox" type="checkbox" />
+                                    <span class="custom-checkbox-mark"></span>
+                                </label>
+                                <span class="desc">Fixed JavaScript problem for index page</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div><!--/col-->
+
+    </div><!--/row-->
+*@

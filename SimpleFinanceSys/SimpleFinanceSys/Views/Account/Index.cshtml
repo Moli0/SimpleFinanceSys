@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.Title = "信息维护";
+}
+<div class="row">
+    <div class="col-ld-12">
+        <form id="form1">
+            <div class="col-ld-12">
+                <table class="table align-justify table-hover" style="width:500px;">
+                    <thead>
+                        <tr>
+                            <th colspan="11" class="align-left font-size-18">用户信息维护</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="max-width: 180px; width: 120px;">登陆名：</td>
+                            <td colspan="10">
+                                <input class="form-control align-left" type="text" name="userid" id="userid" readonly="readonly" required value="" maxlength="28" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="max-width: 180px; width: 120px;">用户名：</td>
+                            <td colspan="10">
+                                <input class="form-control align-left" type="text" name="username" id="username" required value="" maxlength="28" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="max-width: 180px; width: 120px;">邮箱：</td>
+                            <td colspan="10">
+                                <input class="form-control align-left" type="text" name="email" id="email" required value="" maxlength="128" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="max-width: 180px; width: 120px;">消费提醒金额(日)：</td>
+                            <td colspan="10">
+                                <input class="form-control align-left" type="number" name="dayMaxPay" id="dayMaxPay" required />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="max-width: 180px; width: 120px;">消费提醒金额(月)：</td>
+                            <td colspan="10">
+                                <input class="form-control align-left" type="number" name="monthMaxPay" id="monthMaxPay" required />
+                            </td>
+                        </tr>
+                        <tr id="LoadHead">
+                        <td><label>上传头像</label></td>
+                        <td>
+                            <input id="headUrl" name="headUrl" type="hidden"/>
+                            <input class="form-control btn" style="display:none" type="file" id="fileImg" name="fileImg" Accept="image/gif, image/jpeg,image/jpg, image/png,image/bmp" />
+                            <label for="fileImg">
+                                <img class="border-style-gray" id="AddImg" width="64" height="64" alt="选择图片" src="/Content/img/Add2.png" onmousemove="$('#AddImg').attr('src', '/Content/Img/Add2.png');" onmouseout="$('#AddImg').attr('src', '/Content/img/Add2.png');" />
+                                <img class="border-style-gray display-none" id="listImg" title="点击图片进行更换" width="64" height="64" alt="头像" src="/Content/img/Add.png" />
+                            </label>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="11">
+                                <input type="button" class="btn btn-success" value="提交" onclick="SubmitForm()"/>
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function SubmitForm() {
+        //SubmitInfo
+        $.ajax({
+            url: '/Account/SubmitInfo?t=' + new Date().getTime(),
+            data: $("#form1").serializeArray(),
+            type: "POST",
+            async: false,
+            success: function (res) {
+                layer.msg(res.msg);
+            }
+        });
+    }
+
+    $("#fileImg").change(function () {
+        UploadFile($("#fileImg")[0].files[0], function (res) {
+            $("#headUrl").val(res);
+            $("#AddImg").hide();
+            $("#listImg").attr("src", res);
+            $("#listImg").show();
+        });
+    });
+
+    $(function () {
+        $.ajax({
+            url: '/Account/GetUserInfo?t='+new Date().getTime(),
+            type: "GET",
+            success: function (res) {
+                _form("#form1").serializeArray(res.model);
+                $("#AddImg").hide();
+                $("#listImg").attr("src", res.model.headUrl);
+                $("#listImg").show();
+            }
+        });
+    })
+</script>

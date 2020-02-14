@@ -1,0 +1,555 @@
+﻿* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+    font-family: "楷体";
+    font-size: 9pt;
+}
+
+html {
+    padding: 0px;
+    margin: 0px;
+}
+
+.un, .un:link, .un:visited, .un:hover, .un:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+.font-color-white {
+    color: white;
+}
+
+.font-color-black {
+    color: black;
+}
+
+.font-color-red {
+    color: red;
+}
+
+.font-color-green {
+    color: green;
+}
+
+.font-color-blue {
+    color: blue;
+}
+
+.font-size-12 {
+    font-size: 12px;
+}
+
+.font-size-14 {
+    font-size: 14px;
+}
+
+.font-size-18 {
+    font-size: 18px;
+}
+
+.font-size-20 {
+    font-size: 20px;
+}
+
+.font-size-22 {
+    font-size: 22px;
+}
+
+.font-size-24 {
+    font-size: 24px;
+}
+
+.font-size-36 {
+    font-size: 36px;
+}
+
+.font-size-48 {
+    font-size: 48px;
+}
+
+.font-weight-bold {
+    font-weight: bold;
+}
+
+.div-Center {
+    margin: 0 auto;
+    float: none;
+}
+
+.align-justify {
+    text-align: justify;
+    text-align-last: justify;
+}
+
+.align-right {
+    text-align: right;
+    text-align-last: right;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.background-black {
+    background-color: black;
+}
+
+.background-green {
+    background-color: green;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.align-center {
+    text-align: center;
+    text-align-last: center;
+}
+
+.border-style-gray {
+    border: 2px solid #cfcfcf;
+}
+
+.border-radius-3 {
+    border-radius: 3%;
+}
+
+.border-radius-5 {
+    border-radius: 5%;
+}
+
+.border-radius-50 {
+    border-radius: 50%;
+}
+
+.background-layui-table {
+    background-color: #f2f2f2;
+}
+
+.background-white {
+    background-color: white;
+}
+
+.box-centent-hide {
+    overflow: hidden;
+}
+
+.box-centent-scroll {
+    overflow: scroll;
+}
+
+.box-centent-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.line-top {
+    width: 100%;
+    height: 1px;
+    background-color: #cccccc;
+    box-shadow: 0px 0px 4px #cccccc;
+}
+
+.background-gray {
+    background-color: #eee;
+}
+
+.align-left {
+    text-align: left;
+    text-align-last: left;
+}
+
+.path-nav {
+    line-height: 40px;
+    padding: 8px;
+    padding-left: 20px;
+    font-size: 14px;
+    text-align: left;
+    text-align-last: left;
+    border-bottom: 1px solid #cccccc;
+}
+
+    .path-nav span {
+        margin-left: 5px;
+    }
+
+.box-centent-ellipsis-2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.box-centent-ellipsis-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+.box-centent-ellipsis-4 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+}
+
+.box-centent-ellipsis-5 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
+}
+
+.box-centent-ellipsis-6 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+    overflow: hidden;
+}
+
+.box-centent-ellipsis-7 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 7;
+    overflow: hidden;
+}
+
+.box-centent-ellipsis-8 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 8;
+    overflow: hidden;
+}
+
+.box-centent-ellipsis-7 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 7;
+    overflow: hidden;
+}
+
+.box-centent-ellipsis-6 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+    overflow: hidden;
+}
+
+.text-indent-2 {
+    text-indent: 30px;
+}
+
+.div-input {
+    width: 90%;
+    height: 400px;
+    overflow-y: scroll;
+    border: 1px solid #aaa;
+    margin-left: 5%;
+    margin-top: 20px;
+    /*contenteditable="true"*/
+}
+
+.width100 {
+    width: 100%;
+}
+
+.width100vw {
+    width: 100vw;
+}
+
+.font-italic {
+    font-style: italic;
+}
+
+.font-underline {
+    text-decoration: underline;
+}
+
+.background-red {
+    background-color: red;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
+.position-static {
+    position: static;
+}
+
+.position-fixed {
+    position: fixed;
+}
+
+.display-none {
+    display: none;
+}
+
+.display-flex {
+    display: flex;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.overflow-scroll-none {
+    overflow: scroll;
+}
+
+    .overflow-scroll-none::-webkit-scrollbar {
+        display: none;
+    }
+
+.height100vh {
+    height: 100vh;
+}
+
+.boxmargin {
+    margin: 20px;
+}
+
+.boxpadding {
+    padding: 20px;
+}
+
+.interval-1 {
+    /*一级间隔*/
+    margin: 5px;
+}
+
+.interval-2 {
+    /*二级间隔*/
+    margin: 10px;
+}
+
+.interval-3 {
+    /*三级间隔*/
+    margin: 15px;
+}
+
+.interval-4 {
+    /*四级间隔*/
+    margin: 20px;
+}
+
+.list-box {
+    background-color: #cfcfcf;
+    display: inline-block;
+    margin: 10px;
+    width: 150px;
+    height: 150px;
+}
+/*迷你滚动条*/
+.mini-scroll {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+    .mini-scroll::-webkit-scrollbar {
+        width: 5px;
+        padding-right: 3px;
+        background-color: #eee;
+        border-radius: 5px;
+        /*其他样式，比如圆角等*/
+    }
+    /*滑块样式*/
+    .mini-scroll::-webkit-scrollbar-thumb {
+        width: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        background-color: #ccc;
+    }
+        /*当前窗口失去焦点时的滑块样式*/
+        .mini-scroll::-webkit-scrollbar-thumb:window-inactive {
+            background-color: #ddd;
+        }
+
+.no-scroll {
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+    .no-scroll::-webkit-scrollbar {
+        display: none;
+    }
+
+.square-div {
+    width: 100%;
+    padding-bottom: 100%;
+    height: 0;
+}
+
+.main-nav-head-bottom {
+    background: linear-gradient(to right,#ffffff33,#00ff0033,#ffffff33);
+}
+
+.site-top {
+    position: fixed;
+    width: 100vw;
+    height: 50px;
+    font-size: 24px;
+    line-height: 50px;
+    text-align: right;
+    overflow: hidden;
+    z-index: 99;
+}
+
+.site-top-back {
+    background-color: #cccccc33;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 50px;
+    width: 100vw;
+    z-index: 1;
+}
+
+.site-top-div {
+    display: inline-block;
+    padding-left: 50px;
+    padding-right: 50px;
+    line-height: 50px;
+    font-size: 24px;
+    font-family: "楷体";
+    color: #000;
+}
+
+    .site-top-div:hover {
+        background-color: #ffffff99;
+        cursor: pointer;
+    }
+
+.centent-line {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg,#fff,#f4c,#fff);
+}
+
+.centent-title {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    font-family: "楷体";
+    font-weight: bold;
+    text-indent: 30px;
+}
+
+.centent-text {
+    padding: 20px;
+    padding-left: 30px;
+    width: 100%;
+    min-height: 30px;
+    text-indent: 32px;
+    font-size: 14px;
+    line-height: 30px;
+    max-height: 350px;
+    overflow: auto;
+}
+
+.no-scroll {
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+    .no-scroll::-webkit-scrollbar {
+        display: none;
+    }
+
+.main-content-project-synopsisRBox {
+    width: 60%;
+    display: inline-block;
+    text-align: right;
+    padding-left: 20px;
+}
+
+.main-content-project-synopsisLBox {
+    width: 90%;
+    text-align: left;
+    padding-right: 20px;
+}
+
+.main-content-project-imgBox {
+    width: 40%;
+    padding: 0px;
+    margin: 0px;
+}
+
+.main-content-project-title {
+    font-size: 24px;
+    font-family: "楷体";
+    line-height: 60px;
+    font-weight: bold;
+}
+
+.main-content-project-text {
+    text-indent: 30px;
+    text-align: justify;
+    font-size: 14px;
+    font-family: "宋体";
+    line-height: 30px;
+    max-height: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.inline-box {
+    display: table;
+}
+
+.inline-item {
+    display: table-cell;
+}
+
+.main-content-project-text p {
+    line-height: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.inline-project-item {
+    /*display: inline-block;*/
+    transition: transform .5s;
+    overflow: hidden;
+    /*padding: 10px 5px;*/
+    /*border-radius: 50%;*/
+}
+
+    .inline-project-item:hover {
+        z-index:999;
+        transform: scale(1.1,1.1);
+    }
+/*特效*/
+/*div遮图片*/
+.mask-inline-div {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: #cccccc88;
+    position: absolute;
+    transition: opacity .5s;
+    text-align: center;
+    line-height: 250px;
+    font-size: 24px;
+    opacity: 0;
+}
+
+    .mask-inline-div:hover {
+        position: absolute;
+        opacity: 1;
+    }
+/*调用案例<div><div class="mask-inline-div">hello</div><img src="" width="100" height="100"></div>*/
