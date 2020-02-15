@@ -80,7 +80,7 @@ namespace SimpleFinanceSys.Controllers
         {
             Response.StatusCode = (int)HttpStatusCode.OK;
             //var res = Newtonsoft.Json.JsonConvert.SerializeObject(new { status = "success", code = 0, model, pagins });
-            return Json(new { status = "success", code = 0, model, pagins });
+            return Json(new { status = "success", code = 0, model, pagins }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

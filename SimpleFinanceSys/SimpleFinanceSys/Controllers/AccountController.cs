@@ -154,39 +154,72 @@ namespace SimpleFinanceSys.Controllers
 
         [HttpPost]
         public ActionResult Record(Model.ChangeRecordModel model) {
+            DAL.ChangeRecordDAL rdal = new DAL.ChangeRecordDAL();
+            var user = GetUser();
+            if (user.state < 1) {
+                return Error("请先将账户资产信息维护完整");
+            }
             if (string.IsNullOrEmpty(model.id))
             {
                 //添加
                 if (IsNull(model.payType, model.payObject, model.amount)) {
                     return Error("请将数据填写完整！");
                 }
+                DateTime dt = DateTime.Now;
+                int isSaveOrderId = rdal.GetCount(string.Format(" orderId like '{0}%' ", dt.ToString("yyyyMMddHHmmssfff")));
                 model.Create();
                 model.create_user = GetUser().id;
+                model.orderId = dt.ToString("yyyyMMddHHmmssfff") + (isSaveOrderId + 1).ToString("D3");
+                model.beforeAmount = user.nowMoney;
+                #region model.afterAmount
+                if (model.orderType == 0)
+                {
+                    model.afterAmount = (double.Parse(model.beforeAmount) + double.Parse(model.amount)).ToString("f4");
+                }
+                else if (model.orderType == 1)
+                {
+                    model.afterAmount = (double.Parse(model.beforeAmount) - double.Parse(model.amount)).ToString("f4");
+                }
+                else {
+                    return Error("无效的记账类型！");
+                }
+                #endregion
                 int res = dal.InsertSql<Model.ChangeRecordModel>(model, "ChangeRecord");
                 if (res > 0)
                 {
-                    return SuccessMsg("添加成功");
+                    user.nowMoney = model.afterAmount;
+                    int t = dal.Update<Model.UserInfoModel>(user,"userinfo");
+                    if (t > 0)
+                    {
+                        return SuccessMsg("添加成功");
+                    }
+                    else {
+                        dal.Delete(model.id,"ChangeRecord");
+                        return Error("用户数据更新失败，请稍后再试");
+                    }
                 }
                 else {
                     return Error("网络异常，请重试");
                 }
             }
-            else { 
+            else {
                 //修改
-                model.Modify();
-                model.last_user = GetUser().id;
-                if (GetUser().id != dal.GetDataForType<Model.ChangeRecordModel>(model.id, "ChangeRecord").create_user) {
-                    return Error("无效的数据！");
-                }
-                int res = dal.Update<Model.ChangeRecordModel>(model);
-                if (res > 0)
-                {
-                    return SuccessMsg("修改成功");
-                }
-                else
-                {
-                    return Error("无效的数据！");
-                }
+                //不可修改
+                return Warnning("数据不可修改，请使用记账方式进行抹平");
+                //model.Modify();
+                //model.last_user = GetUser().id;
+                //if (GetUser().id != dal.GetDataForType<Model.ChangeRecordModel>(model.id, "ChangeRecord").create_user) {
+                //    return Error("无效的数据！");
+                //}
+                //int res = dal.Update<Model.ChangeRecordModel>(model);
+                //if (res > 0)
+                //{
+                //    return SuccessMsg("修改成功");
+                //}
+                //else
+                //{
+                //    return Error("无效的数据！");
+                //}
             }
         }
     }

@@ -51,6 +51,22 @@ function initFun(id) {
     this.setParamAndLoad = function (setparma) {
         var tableStr = (this.elem).substr(1);
         optionList[tableStr].data = setparma;
+        console.log(setparma);
+        console.log(optionList[tableStr].data);
+        this.table(optionList[tableStr]);
+    }
+    this.LoadPagin = function (pageSize, pageIndex, maxIndex) {
+        if (pageIndex > maxIndex) {
+            _alert("已经是最后一页了哦", "warning");
+            return;
+        }
+        if (pageIndex == 0) {
+            _alert("已经是第一页了哦", "warning");
+            return;
+        }
+        var tableStr = (this.elem).substr(1);
+        optionList[tableStr].PageSize = pageSize;
+        optionList[tableStr].PageIndex = pageIndex;
         this.table(optionList[tableStr]);
     }
 }
@@ -97,7 +113,7 @@ $(function () {
                 _alert(JSON.parse(XMLHttpRequest.responseText).msg, "warnning");
             } else if (XMLHttpRequest.status > 240) {
                 _alert(JSON.parse(XMLHttpRequest.responseText).msg, "error");
-                if (userError!=null) {
+                if (userError != null) {
                     userError(JSON.parse(XMLHttpRequest.responseText).msg);
                 }
             } else {
@@ -242,7 +258,10 @@ var _table = function (options) {
                 data = res.model;
             }
             htmlTBody += "<tbody>";
-            data = JSON.parse(data);
+            if (options.dataType == "json") {
+            } else {
+                data = JSON.parse(data);
+            }
             if (data == null || data == undefined || data.length == 0) {
                 _alert("找不到相关数据", "warning");
                 $(options.elem).html(htmlHead);
@@ -291,33 +310,33 @@ var _table = function (options) {
                     }
                     if (citem.format == null || citem.format == undefined) {//无格式化
                         if (item[citem.index] == null || item[citem.index] == undefined) { //如果在该行中不存在表头中的索引，则不添加数据
-                            htmlTBody += "<td " + columnClass +" id='_frame_" + citem.index + "_" + (i + 1) + "' name='_frame_" + citem.index + "_" + (i + 1) + "' style='"  + columnWidth + hiddenCode + columnAlign + "' onclick='_frame(\"" + options.elem + "\").onclick(this" + onclickParam + ")'></td>";
+                            htmlTBody += "<td " + columnClass + " id='_frame_" + citem.index + "_" + (i + 1) + "' name='_frame_" + citem.index + "_" + (i + 1) + "' style='" + columnWidth + hiddenCode + columnAlign + "' onclick='_frame(\"" + options.elem + "\").onclick(this" + onclickParam + ")'></td>";
                         } else {  //
-                            htmlTBody += "<td " + columnClass +" id='_frame_" + citem.index + "_" + (i + 1) + "' name='_frame_" + citem.index + "_" + (i + 1) + "' style='"  + columnWidth + hiddenCode + columnAlign + "' onclick='_frame(\"" + options.elem + "\").onclick(this" + onclickParam + ")'>" + item[citem.index] + "</td>";//添加数据，item[citem.index],citem.index为列索引
+                            htmlTBody += "<td " + columnClass + " id='_frame_" + citem.index + "_" + (i + 1) + "' name='_frame_" + citem.index + "_" + (i + 1) + "' style='" + columnWidth + hiddenCode + columnAlign + "' onclick='_frame(\"" + options.elem + "\").onclick(this" + onclickParam + ")'>" + item[citem.index] + "</td>";//添加数据，item[citem.index],citem.index为列索引
                         }
                     } else {
                         if ($.type(citem.format) == "function") {
                             //format(rowid,rowdata) 
                             var rowData = item;
                             var UnitContent = citem.format((i + 1), rowData);
-                            htmlTBody += "<td " + columnClass +" id='_frame_" + citem.index + "_" + (i + 1) + "' name='_frame_" + citem.index + "_" + (i + 1) + "' style='"  + columnWidth + hiddenCode + columnAlign + "' onclick='_frame(\"" + options.elem + "\").onclick(this" + onclickParam + ")'>" + UnitContent + "</td>";
+                            htmlTBody += "<td " + columnClass + " id='_frame_" + citem.index + "_" + (i + 1) + "' name='_frame_" + citem.index + "_" + (i + 1) + "' style='" + columnWidth + hiddenCode + columnAlign + "' onclick='_frame(\"" + options.elem + "\").onclick(this" + onclickParam + ")'>" + UnitContent + "</td>";
                         } else if ($.type(citem.format) == "string") {
                             switch (citem.format) {
                                 case "text":
-                                case "string": htmlTBody += "<td " + columnClass +" id='_frame_" + citem.index + "_" + (i + 1) + "' name='_frame_" + citem.index + "_" + (i + 1) + "' style='"  + columnWidth + hiddenCode + columnAlign + "' onclick='_frame(\"" + options.elem + "\").onclick(this" + onclickParam + ")'>" + item[citem.index] + "</td>"; break;
-                                case "number": htmlTBody += "<td " + columnClass +" id='_frame_" + citem.index + "_" + (i + 1) + "' name='_frame_" + citem.index + "_" + (i + 1) + "' style='"  + columnWidth + hiddenCode + columnAlign + "' onclick='_frame(\"" + options.elem + "\").onclick(this" + onclickParam + ")'>" + (item[citem.index] == '' || item[citem.index] == null ? 0 : parseFloat(item[citem.index])) + "</td>"; break;
-                                case "money": htmlTBody += "<td " + columnClass +" id='_frame_" + citem.index + "_" + (i + 1) + "' name='_frame_" + citem.index + "_" + (i + 1) + "' style='"  + columnWidth + hiddenCode + columnAlign + "' onclick='_frame(\"" + options.elem + "\").onclick(this" + onclickParam + ")'>" + GetToFixed(item[citem.index], 2) + "</td>"; break;
-                                case "date": htmlTBody += "<td " + columnClass +" id='_frame_" + citem.index + "_" + (i + 1) + "' name='_frame_" + citem.index + "_" + (i + 1) + "' style='"  + columnWidth + hiddenCode + columnAlign + "' onclick='_frame(\"" + options.elem + "\").onclick(this" + onclickParam + ")'>" + formatTime(item[citem.index], "yyyy-MM-dd") + "</td>"; break;
-                                case "datetime": htmlTBody += "<td " + columnClass +" id='_frame_" + citem.index + "_" + (i + 1) + "' name='_frame_" + citem.index + "_" + (i + 1) + "' style='"  + columnWidth + hiddenCode + columnAlign + "' onclick='_frame(\"" + options.elem + "\").onclick(this" + onclickParam + ")'>" + formatTime(item[citem.index], "yyyy-MM-dd HH:mm:ss") + "</td>"; break;
+                                case "string": htmlTBody += "<td " + columnClass + " id='_frame_" + citem.index + "_" + (i + 1) + "' name='_frame_" + citem.index + "_" + (i + 1) + "' style='" + columnWidth + hiddenCode + columnAlign + "' onclick='_frame(\"" + options.elem + "\").onclick(this" + onclickParam + ")'>" + item[citem.index] + "</td>"; break;
+                                case "number": htmlTBody += "<td " + columnClass + " id='_frame_" + citem.index + "_" + (i + 1) + "' name='_frame_" + citem.index + "_" + (i + 1) + "' style='" + columnWidth + hiddenCode + columnAlign + "' onclick='_frame(\"" + options.elem + "\").onclick(this" + onclickParam + ")'>" + (item[citem.index] == '' || item[citem.index] == null ? 0 : parseFloat(item[citem.index])) + "</td>"; break;
+                                case "money": htmlTBody += "<td " + columnClass + " id='_frame_" + citem.index + "_" + (i + 1) + "' name='_frame_" + citem.index + "_" + (i + 1) + "' style='" + columnWidth + hiddenCode + columnAlign + "' onclick='_frame(\"" + options.elem + "\").onclick(this" + onclickParam + ")'>" + GetToFixed(item[citem.index], 2) + "</td>"; break;
+                                case "date": htmlTBody += "<td " + columnClass + " id='_frame_" + citem.index + "_" + (i + 1) + "' name='_frame_" + citem.index + "_" + (i + 1) + "' style='" + columnWidth + hiddenCode + columnAlign + "' onclick='_frame(\"" + options.elem + "\").onclick(this" + onclickParam + ")'>" + formatTime(item[citem.index], "yyyy-MM-dd") + "</td>"; break;
+                                case "datetime": htmlTBody += "<td " + columnClass + " id='_frame_" + citem.index + "_" + (i + 1) + "' name='_frame_" + citem.index + "_" + (i + 1) + "' style='" + columnWidth + hiddenCode + columnAlign + "' onclick='_frame(\"" + options.elem + "\").onclick(this" + onclickParam + ")'>" + formatTime(item[citem.index], "yyyy-MM-dd HH:mm:ss") + "</td>"; break;
                                 default:
                                     if ((citem.format).substr(0, 5) == "json:") {//json数据格式，根据值进行匹配显示，例：json:{"0","男","1":"女","2":"未知"}
                                         var jj = (citem.format).substr(5);
-                                        htmlTBody += "<td " + columnClass +" id='_frame_" + citem.index + "_" + (i + 1) + "' name='_frame_" + citem.index + "_" + (i + 1) + "' style='"  + columnWidth + hiddenCode + columnAlign + "' onclick='_frame(\"" + options.elem + "\").onclick(this" + onclickParam + ")'>" + ColumnFormatJson(item[citem.index], jj) + "</td>";
+                                        htmlTBody += "<td " + columnClass + " id='_frame_" + citem.index + "_" + (i + 1) + "' name='_frame_" + citem.index + "_" + (i + 1) + "' style='" + columnWidth + hiddenCode + columnAlign + "' onclick='_frame(\"" + options.elem + "\").onclick(this" + onclickParam + ")'>" + ColumnFormatJson(item[citem.index], jj) + "</td>";
                                     } else if ((citem.format).substr(0, 5) == "date:") { //自定义时间格式,例：date:yy-MM-dd
                                         var tt = (citem.format).substr(5);
-                                        htmlTBody += "<td " + columnClass +" id='_frame_" + citem.index + "_" + (i + 1) + "' name='_frame_" + citem.index + "_" + (i + 1) + "' style='"  + columnWidth + hiddenCode + columnAlign + "' onclick='_frame(\"" + options.elem + "\").onclick(this" + onclickParam + ")'>" + formatTime(item[citem.index], tt) + "</td>";
+                                        htmlTBody += "<td " + columnClass + " id='_frame_" + citem.index + "_" + (i + 1) + "' name='_frame_" + citem.index + "_" + (i + 1) + "' style='" + columnWidth + hiddenCode + columnAlign + "' onclick='_frame(\"" + options.elem + "\").onclick(this" + onclickParam + ")'>" + formatTime(item[citem.index], tt) + "</td>";
                                     } else {
-                                        htmlTBody += "<td " + columnClass +" id='_frame_" + citem.index + "_" + (i + 1) + "' name='_frame_" + citem.index + "_" + (i + 1) + "' style='"  + columnWidth + hiddenCode + columnAlign + "' onclick='_frame(\"" + options.elem + "\").onclick(this" + onclickParam + ")'>" + item[citem.index] + "</td>";
+                                        htmlTBody += "<td " + columnClass + " id='_frame_" + citem.index + "_" + (i + 1) + "' name='_frame_" + citem.index + "_" + (i + 1) + "' style='" + columnWidth + hiddenCode + columnAlign + "' onclick='_frame(\"" + options.elem + "\").onclick(this" + onclickParam + ")'>" + item[citem.index] + "</td>";
                                     }
                                     break;
                             }
@@ -337,8 +356,8 @@ var _table = function (options) {
             ArrDelet(optionList, tableStr);
             delete optionList[tableStr];
             optionList[tableStr] = options;
-            page.domId = options.elem;
-            SetPagin(page);
+            page.domId = options.pageElem;
+            SetPagin(page, options.elem);
             loadedFunction(options.loaded);
         }
     });
@@ -409,7 +428,7 @@ function SetOptions(options) {
     if (options.Sort == null || options.Sort == undefined) {
         options.Sort = this.myconfig.Sort;
     }
-    if (options.PageIndex == null || options.index == undefined) {
+    if (options.PageIndex == null || options.PageIndex == undefined) {
         options.PageIndex = this.myconfig.PageIndex;
     }
     if (options.multiple == null || options.multiple == undefined) {
@@ -495,13 +514,13 @@ function formatTime(datetime, formatStr) {
     var min = d.getMinutes();
     var sec = d.getSeconds();
     var mill = d.getMilliseconds();
-    formatStr = formatStr.replace("yyyy", year);
-    formatStr = formatStr.replace("yy", year2);
-    formatStr = formatStr.replace("MM", month);
-    formatStr = formatStr.replace("dd", day);
-    formatStr = formatStr.replace("HH", hour);
-    formatStr = formatStr.replace("mm", min);
-    formatStr = formatStr.replace("ss", sec);
+    formatStr = formatStr.replace("yyyy", formatIntNumberToStr(year, 4));
+    formatStr = formatStr.replace("yy", formatIntNumberToStr(year2, 2));
+    formatStr = formatStr.replace("MM", formatIntNumberToStr(month, 2));
+    formatStr = formatStr.replace("dd", formatIntNumberToStr(day, 2));
+    formatStr = formatStr.replace("HH", formatIntNumberToStr(hour, 2));
+    formatStr = formatStr.replace("mm", formatIntNumberToStr(min, 2));
+    formatStr = formatStr.replace("ss", formatIntNumberToStr(sec, 2));
     formatStr = formatStr.replace("fff", formatIntNumberToStr(mill, 3));
     formatStr = formatStr.replace("ff", formatIntNumberToStr(mill, 2));
     formatStr = formatStr.replace("f", formatIntNumberToStr(mill, 1));
@@ -546,10 +565,17 @@ function _GetMultipleRowid(domId) {
 
 //表格单击选中效果
 function tableClick(e) {
+    var _selectColor = this.myconfig.selectColor;
     selectRowId = $(e).parent().find("td[name='_frameRowid']").html();
     var domId = $(e).parent().parent().parent().attr("id");
-    $("#" + domId).find("tr").css("background-color", "");
-    $(e).parent().css("background-color", this.myconfig.selectColor);
+    $("#" + domId).find("td").css("background-color", "");
+    //$(e).parent().css("background-color", this.myconfig.selectColor);
+    $.each($("#" + domId).find("td"), function (i, item) {
+        $(item).css("background-color", "");
+    });
+    $.each($(e).parent().find("td"), function (i, item) {
+        $(item).css("background-color", _selectColor);
+    });
     selectRowData = _GetTableData("#" + domId, selectRowId);
 
     var tableStr = domId
@@ -563,7 +589,7 @@ function tableClick(e) {
 }
 
 //设置分页
-function SetPagin(options) {
+function SetPagin(options, tableElem) {
     if (options.domId == null || options.domId == undefined) {
         options.domId = this.myconfig.pageElem;
     }
@@ -577,25 +603,26 @@ function SetPagin(options) {
         options.counts = 0;
     }
     var html = "";
-    var pageCount = (parseInt(options.counts) / parseInt(options.PageSize)) + 1;
-    html += '<nav aria-label="Page navigation"><ul class="pagination"><li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
+    var pageCount = parseInt((parseInt(options.counts) / parseInt(options.PageSize)) + 1);
+    var PreviousPageIndex = options.PageIndex - 1;
+    html += '<nav aria-label="Page navigation"><ul class="pagination"><li><a href="javascript:LoadPagin(' + options.PageSize + ',' + PreviousPageIndex + ',' + pageCount + ',\'' + tableElem + '\');" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
     if (options.PageIndex < 3) {
         for (var i = 0; i < pageCount; i++) {
             if (i == 6) {
                 html += '<li><a href="#">...</a></li>';
                 break;
             } else {
-                html += '<li><a href="#">' + (i + 1) + '</a></li>';
+                html += '<li><a href="javascript:LoadPagin(' + options.PageSize + ',' + (i + 1) + ',' + pageCount + ',\'' + tableElem + '\');">' + (i + 1) + '</a></li>';
             }
         }
     } else {
         for (var i = 0; i < pageCount; i++) {
             var DValue = parseInt(options.PageIndex) - i;
             if (DValue > -3 && DValue < 3) {
-                html += '<li><a href="#">' + (i + 1) + '</a></li>';
+                html += '<li><a href="javascript:LoadPagin(' + options.PageSize + ',' + (i + 1) + ',' + pageCount + ',\'' + tableElem + '\');">' + (i + 1) + '</a></li>';
             } else {
                 if (DValue == -3) {
-                    html += '<li><a href="#">1</a></li>';
+                    html += '<li><a href="javascript:LoadPagin(' + options.PageSize + ',1,' + pageCount + ',\'' + tableElem + '\');">1</a></li>';
                     html += '<li><a href="#">...</a></li>';
                 }
                 if (DValue == 3) {
@@ -605,8 +632,14 @@ function SetPagin(options) {
             }
         }
     }
-    html += '<li><a href="#">' + pageCount + '</a></li>';
-    html += '<li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li></ul></nav>';
+    var nextPageIndex = options.PageIndex + 1;
+    html += '<li><a href="javascript:LoadPagin(' + options.PageSize + ',' + nextPageIndex + ',' + pageCount + ',\'' + tableElem + '\');" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
+    html += '<li><span style="border:none;background-color:transparent;color:#000;">共' + options.counts + '条数据，每页' + options.PageSize + '条，当前第' + options.PageIndex + '页,共' + parseInt(pageCount) + '页</a></li></ul></nav>';
+    $(options.domId).html(html);
+}
+
+function LoadPagin(pageSize, pageIndex, maxIndex, tableElem) {
+    _frame(tableElem).LoadPagin(pageSize, pageIndex, maxIndex);
 }
 
 function loadedFunction(fun) {

@@ -24,6 +24,11 @@ namespace Model
         /// <summary>
         /// 排序字段
         /// </summary>
+        public string Sort { get; set; }
+
+        /// <summary>
+        /// 排序字段
+        /// </summary>
         public string sortStr { get; set; }
 
         /// <summary>
@@ -34,7 +39,7 @@ namespace Model
         /// <summary>
         /// 数据总条数
         /// </summary>
-        public int NumberTotle { get; set; }
+        public int counts { get; set; }
 
         /// <summary>
         /// 页面总数

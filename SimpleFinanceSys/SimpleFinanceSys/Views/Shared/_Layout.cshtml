@@ -7,7 +7,6 @@
     <title>个人财务管理系统</title>
 
     <!-- Import google fonts - Heading first/ text second -->
-
     <!-- Fav and touch icons -->
     <link rel="shortcut icon" href="/Content/IndexStyleScript/assets/ico/favicon.ico" type="image/x-icon" />
 
@@ -60,6 +59,23 @@
             });
         }
 
+        function InitRecordSelect() {
+            _form("#payType").bindSelect({
+                url: "/Setting/GetTypes?t=" + new Date().getTime(),
+                dataType: "string",
+                type: "GET",
+                id: "id",
+                text: "name"
+            });
+            _form("#payObject").bindSelect({
+                url: "/Setting/GetObjects?t=" + new Date().getTime(),
+                type: "GET",
+                dataType: "string",
+                id: "id",
+                text: "name"
+            });
+        }
+
         function Record() {
             _open({
                 type: 0,
@@ -80,6 +96,7 @@
                     });
                 }
             });
+            InitRecordSelect();
         }
 
         function ChangeSelfMoney() {
@@ -130,17 +147,20 @@
                         <tr>
                             <th>原密码：</th>
                             <td>
-                                <input class="form-control" type="password" name="oldPwd" id="oldPwd" maxlength="28" /></td>
+                                <input class="form-control" type="password" name="oldPwd" id="oldPwd" maxlength="28" />
+                            </td>
                         </tr>
                         <tr>
                             <th>新密码：</th>
                             <td>
-                                <input class="form-control" type="password" name="newPwd" id="newPwd" maxlength="28" /></td>
+                                <input class="form-control" type="password" name="newPwd" id="newPwd" maxlength="28" />
+                            </td>
                         </tr>
                         <tr>
                             <th>确认新密码：</th>
                             <td>
-                                <input class="form-control" type="password" name="newPwds" id="newPwds" maxlength="28" /></td>
+                                <input class="form-control" type="password" name="newPwds" id="newPwds" maxlength="28" />
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -162,7 +182,8 @@
                         <tr>
                             <th>当前资产：</th>
                             <td>
-                                <input class="form-control" type="number" name="nowMoney" id="nowMoney" /></td>
+                                <input class="form-control" type="number" name="nowMoney" id="nowMoney" />
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -178,8 +199,8 @@
                             <th>记账类型<span class="font-color-red">*</span></th>
                             <td>
                                 <select class="form-control" id="orderType" name="orderType">
-                                    <option value="0">收入</option>
                                     <option value="1">支出</option>
+                                    <option value="0">收入</option>
                                 </select>
                             </td>
                         </tr>
@@ -210,6 +231,9 @@
                             <td>
                                 <textarea class="form-control" name="remark" id="remark"></textarea>
                             </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><p class="font-color-red text-indent-2">*账单数据一经记录，不可修改，不可删除，如需修改或删除，请再次反向记账进行金额抹平</p></td>
                         </tr>
                     </tbody>
                 </table>
@@ -244,7 +268,8 @@
                 </li>
                 <li class="dropdown visible-md visible-lg">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img class="user-avatar" src="/Content/IndexStyleScript/assets/img/avatar.jpg" alt="user-mail">jhonsmith@mail.com</a>
+                        <img class="user-avatar" src="/Content/IndexStyleScript/assets/img/avatar.jpg" alt="user-mail">jhonsmith@mail.com
+                    </a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-menu-header">
                             <strong>资产统计</strong>
@@ -282,13 +307,7 @@
                         <ul class="nav nav-sidebar">
                             <li><a href="/index"><i class="fa fa-laptop"></i><span class="text">总览</span></a></li>
                             <li><a href="javascript:Record();"><i class="fa fa-laptop"></i><span class="text">记账</span></a></li>
-                            <li>
-                                <a href="#"><i class="fa fa-file-text"></i><span class="text">账单</span> <span class="fa fa-angle-down pull-right"></span></a>
-                                <ul class="nav sub">
-                                    <li><a href="page-activity"><i class="fa fa-tags"></i><span class="text">2020年</span></a></li>
-                                    <li><a href="page-inbox"><i class="fa fa-tags"></i><span class="text">2019年</span></a></li>
-                                </ul>
-                            </li>
+                            <li><a href="/Bill"><i class="fa fa-file-text"></i><span class="text">账单</span></a></li>
                             <li>
                                 <a href="#"><i class="fa fa-list-alt"></i><span class="text">账号管理</span> <span class="fa fa-angle-down pull-right"></span></a>
                                 <ul class="nav sub">
@@ -328,7 +347,6 @@
 
             </div>
             <!-- end: Main Menu -->
-
             <!-- start: Content -->
             <div class="main">
                 @RenderBody()
@@ -338,145 +356,142 @@
             <br>
             <br>
             <br>
-
-
-            <div id="usage">
-                <ul>
-                    <li>
-                        <div class="title">总资产</div>
-                        <!-- <div class="bar">
-						<div class="progress">
-						  	<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
-						</div>
-					</div>			 -->
-                        <div class="desc">￥1,3020.00</div>
-                    </li>
-                    <li>
-                        <div class="title">现金</div>
-                        <!-- <div class="bar">
-						<div class="progress">
-						  	<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%"></div>
-						</div>
-					</div>			 -->
-                        <div class="desc">￥5000.00</div>
-                    </li>
-                    <li>
-                        <div class="title">存款</div>
-                        <!-- <div class="bar">
-						<div class="progress">
-					  		<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%"></div>
-						</div>
-					</div>			 -->
-                        <div class="desc">￥11040.00</div>
-                    </li>
-                    <li>
-                        <div class="title">负债</div>
-                        <!-- <div class="bar">
-						<div class="progress">
-					  		<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%"></div>
-						</div>
-					</div>			 -->
-                        <div class="desc">￥3020.00</div>
-                    </li>
-                </ul>
-            </div>
-
         </div>
-        <!--/container-->
+
+        <div id="usage">
+            <ul>
+                <li>
+                    <div class="title">总资产</div>
+                    <!-- <div class="bar">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+                        </div>
+                    </div>			 -->
+                    <div class="desc">￥1,3020.00</div>
+                </li>
+                <li>
+                    <div class="title">现金</div>
+                    <!-- <div class="bar">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%"></div>
+                        </div>
+                    </div>			 -->
+                    <div class="desc">￥5000.00</div>
+                </li>
+                <li>
+                    <div class="title">存款</div>
+                    <!-- <div class="bar">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%"></div>
+                        </div>
+                    </div>			 -->
+                    <div class="desc">￥11040.00</div>
+                </li>
+                <li>
+                    <div class="title">负债</div>
+                    <!-- <div class="bar">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%"></div>
+                        </div>
+                    </div>			 -->
+                    <div class="desc">￥3020.00</div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <!--/container-->
 
 
-        <div class="modal fade" id="myModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Warning Title</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>Here settings can be configured...</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Warning Title</h4>
                 </div>
-                <!-- /.modal-content -->
+                <div class="modal-body">
+                    <p>Here settings can be configured...</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
-            <!-- /.modal-dialog -->
+            <!-- /.modal-content -->
         </div>
-        <!-- /.modal -->
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 
-        <div class="clearfix"></div>
+    <div class="clearfix"></div>
 
 
-        <!-- start: JavaScript-->
-        <!--[if !IE]>-->
+    <!-- start: JavaScript-->
+    <!--[if !IE]>-->
 
-        <script src="/Content/IndexStyleScript/assets/js/jquery-2.1.1.min.js"></script>
+    <script src="/Content/IndexStyleScript/assets/js/jquery-2.1.1.min.js"></script>
 
-        <!--<![endif]-->
+    <!--<![endif]-->
+    <!--[if IE]>
 
-        <!--[if IE]>
-	
-		<script src="/Content/IndexStyleScript/assets/js/jquery-1.11.1.min.js"></script>
-	
-	<![endif]-->
+        <script src="/Content/IndexStyleScript/assets/js/jquery-1.11.1.min.js"></script>
 
-        <!--[if !IE]>-->
+    <![endif]-->
+    <!--[if !IE]>-->
+
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='/Content/IndexStyleScript/assets/js/jquery-2.1.1.min.js'>" + "<" + "/script>");
+    </script>
+
+    <!--<![endif]-->
+    <!--[if IE]>
 
         <script type="text/javascript">
-            window.jQuery || document.write("<script src='/Content/IndexStyleScript/assets/js/jquery-2.1.1.min.js'>" + "<" + "/script>");
+        window.jQuery || document.write("<script src='/Content/IndexStyleScript/assets/js/jquery-1.11.1.min.js'>"+"<"+"/script>");
         </script>
 
-        <!--<![endif]-->
-
-        <!--[if IE]>
-	
-		<script type="text/javascript">
-	 	window.jQuery || document.write("<script src='/Content/IndexStyleScript/assets/js/jquery-1.11.1.min.js'>"+"<"+"/script>");
-		</script>
-		
-	<![endif]-->
-        <script src="/Content/IndexStyleScript/assets/js/jquery-migrate-1.2.1.min.js"></script>
-        <script src="/Content/IndexStyleScript/assets/js/bootstrap.min.js"></script>
+    <![endif]-->
+    <script src="/Content/IndexStyleScript/assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/Content/IndexStyleScript/assets/js/bootstrap.min.js"></script>
 
 
-        <!-- page scripts -->
-        <script src="/Content/IndexStyleScript/assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
-        <script src="/Content/IndexStyleScript/assets/plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
-        <script src="/Content/IndexStyleScript/assets/plugins/moment/moment.min.js"></script>
-        <script src="/Content/IndexStyleScript/assets/plugins/fullcalendar/js/fullcalendar.min.js"></script>
-        <!--[if lte IE 8]>
-		<script language="javascript" type="text/javascript" src="/Content/IndexStyleScript/assets/plugins/excanvas/excanvas.min.js"></script>
-	<![endif]-->
-        <script src="/Content/IndexStyleScript/assets/plugins/flot/jquery.flot.min.js"></script>
-        <script src="/Content/IndexStyleScript/assets/plugins/flot/jquery.flot.pie.min.js"></script>
-        <script src="/Content/IndexStyleScript/assets/plugins/flot/jquery.flot.stack.min.js"></script>
-        <script src="/Content/IndexStyleScript/assets/plugins/flot/jquery.flot.resize.min.js"></script>
-        <script src="/Content/IndexStyleScript/assets/plugins/flot/jquery.flot.time.min.js"></script>
-        <script src="/Content/IndexStyleScript/assets/plugins/flot/jquery.flot.spline.min.js"></script>
-        <script src="/Content/IndexStyleScript/assets/plugins/xcharts/js/xcharts.min.js"></script>
-        <script src="/Content/IndexStyleScript/assets/plugins/autosize/jquery.autosize.min.js"></script>
-        <script src="/Content/IndexStyleScript/assets/plugins/placeholder/jquery.placeholder.min.js"></script>
-        <script src="/Content/IndexStyleScript/assets/plugins/datatables/js/jquery.dataTables.min.js"></script>
-        <script src="/Content/IndexStyleScript/assets/plugins/datatables/js/dataTables.bootstrap.min.js"></script>
-        <script src="/Content/IndexStyleScript/assets/plugins/raphael/raphael.min.js"></script>
-        <script src="/Content/IndexStyleScript/assets/plugins/morris/js/morris.min.js"></script>
-        <script src="/Content/IndexStyleScript/assets/plugins/jvectormap/js/jquery-jvectormap-1.2.2.min.js"></script>
-        <script src="/Content/IndexStyleScript/assets/plugins/jvectormap/js/jquery-jvectormap-world-mill-en.js"></script>
-        <script src="/Content/IndexStyleScript/assets/plugins/jvectormap/js/gdp-data.js"></script>
-        <script src="/Content/IndexStyleScript/assets/plugins/gauge/gauge.min.js"></script>
+    <!-- page scripts -->
+    <script src="/Content/IndexStyleScript/assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
+    <script src="/Content/IndexStyleScript/assets/plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
+    <script src="/Content/IndexStyleScript/assets/plugins/moment/moment.min.js"></script>
+    <script src="/Content/IndexStyleScript/assets/plugins/fullcalendar/js/fullcalendar.min.js"></script>
+    <!--[if lte IE 8]>
+        <script language="javascript" type="text/javascript" src="/Content/IndexStyleScript/assets/plugins/excanvas/excanvas.min.js"></script>
+    <![endif]-->
+    <script src="/Content/IndexStyleScript/assets/plugins/flot/jquery.flot.min.js"></script>
+    <script src="/Content/IndexStyleScript/assets/plugins/flot/jquery.flot.pie.min.js"></script>
+    <script src="/Content/IndexStyleScript/assets/plugins/flot/jquery.flot.stack.min.js"></script>
+    <script src="/Content/IndexStyleScript/assets/plugins/flot/jquery.flot.resize.min.js"></script>
+    <script src="/Content/IndexStyleScript/assets/plugins/flot/jquery.flot.time.min.js"></script>
+    <script src="/Content/IndexStyleScript/assets/plugins/flot/jquery.flot.spline.min.js"></script>
+    <script src="/Content/IndexStyleScript/assets/plugins/xcharts/js/xcharts.min.js"></script>
+    <script src="/Content/IndexStyleScript/assets/plugins/autosize/jquery.autosize.min.js"></script>
+    <script src="/Content/IndexStyleScript/assets/plugins/placeholder/jquery.placeholder.min.js"></script>
+    <script src="/Content/IndexStyleScript/assets/plugins/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/Content/IndexStyleScript/assets/plugins/datatables/js/dataTables.bootstrap.min.js"></script>
+    <script src="/Content/IndexStyleScript/assets/plugins/raphael/raphael.min.js"></script>
+    <script src="/Content/IndexStyleScript/assets/plugins/morris/js/morris.min.js"></script>
+    <script src="/Content/IndexStyleScript/assets/plugins/jvectormap/js/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="/Content/IndexStyleScript/assets/plugins/jvectormap/js/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="/Content/IndexStyleScript/assets/plugins/jvectormap/js/gdp-data.js"></script>
+    <script src="/Content/IndexStyleScript/assets/plugins/gauge/gauge.min.js"></script>
 
 
-        <!-- theme scripts -->
-        <script src="/Content/IndexStyleScript/assets/js/SmoothScroll.js"></script>
-        <script src="/Content/IndexStyleScript/assets/js/jquery.mmenu.min.js"></script>
-        <script src="/Content/IndexStyleScript/assets/js/core.min.js"></script>
-        <script src="/Content/IndexStyleScript/assets/plugins/d3/d3.min.js"></script>
+    <!-- theme scripts -->
+    <script src="/Content/IndexStyleScript/assets/js/SmoothScroll.js"></script>
+    <script src="/Content/IndexStyleScript/assets/js/jquery.mmenu.min.js"></script>
+    <script src="/Content/IndexStyleScript/assets/js/core.min.js"></script>
+    <script src="/Content/IndexStyleScript/assets/plugins/d3/d3.min.js"></script>
 
-        <!-- inline scripts related to this page -->
-        <script src="/Content/IndexStyleScript/assets/js/pages/index.js"></script>
+    <!-- inline scripts related to this page -->
+    <script src="/Content/IndexStyleScript/assets/js/pages/index.js"></script>
 
-        <!-- end: JavaScript-->
+    <!-- end: JavaScript-->
 </body>
 </html>

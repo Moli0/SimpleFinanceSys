@@ -59,6 +59,8 @@ function initForm(id) {
         var param = {};
         var idCulomnName = "";
         var textCulomnName = "";
+        var ajaxType = "POST";
+        var dataType = "json";
         var selectElem = this.elem;
         if (options.url == null || options.url == undefined) {
             return;
@@ -76,16 +78,32 @@ function initForm(id) {
         } else {
             textCulomnName = options.text;
         }
+        if (options.type == null || options.type == undefined) {
+            ajaxType = "POST";
+        } else {
+            ajaxType = options.type;
+        }
+        if (options.dataType == null || options.dataType == undefined) {
+            dataType = "json";
+        } else {
+            dataType = options.dataType;
+        }
         $.ajax({
             url: options.url,
             data: param,
             async: false,
             dataType: "json",
-            type: "POST",
+            type: ajaxType,
             success: function (res) {
+                if (dataType == "json") {
+                } else {
+                    res.model = JSON.parse(res.model);
+                }
                 var html = "";
                 if (options.defaultNull == null || options.defaultNull == undefined) {
                     html += "<option value=''>==请选择==</option>";
+                } else {
+                    html += $(selectElem).html();
                 }
                 $.each(res.model, function (i, item) {
                     html += "<option value='" + item[idCulomnName] + "'>" + item[textCulomnName] + "</option>";
