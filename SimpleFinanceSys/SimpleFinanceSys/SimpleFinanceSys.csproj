@@ -149,8 +149,8 @@
     <Content Include="Content\Css\notFound.css" />
     <Content Include="Content\Css\prettify.css" />
     <Content Include="Content\Css\Site.css" />
-    <Content Include="Content\Img\Add2.png" />
-    <Content Include="Content\Img\b1.jpg" />
+    <Content Include="Content\images\Add2.png" />
+    <Content Include="Content\images\b1.jpg" />
     <Content Include="Content\IndexStyleScript\assets\css\add-ons.min.css" />
     <Content Include="Content\IndexStyleScript\assets\css\bootstrap.min.css" />
     <Content Include="Content\IndexStyleScript\assets\css\climacons-font.css" />
@@ -496,11 +496,13 @@
     <Content Include="Views\Deposit\DrawMoney.cshtml" />
     <Content Include="Views\Deposit\Index.cshtml" />
     <Content Include="Views\Index\Index.cshtml" />
-    <Content Include="Views\Loan\Index.cshtml" />
-    <Content Include="Views\Loan\Repayment.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Setting\ConsumptionObjects.cshtml" />
     <Content Include="Views\Setting\ConsumptionTypes.cshtml" />
+    <Content Include="Views\Loan\LoanManagement.cshtml" />
+    <Content Include="Views\Loan\RepaymentManagement.cshtml" />
+    <Content Include="Views\Loan\DepositManagement.cshtml" />
+    <Content Include="Views\Loan\DrawMoneyManagement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

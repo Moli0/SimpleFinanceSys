@@ -100,14 +100,61 @@ namespace SimpleFinanceSys.Controllers
             model.email = email;
             model.lastSignTime = DateTime.Parse("1970-01-01 00:00:00.000");
             int res = dal.InsertSql<Model.UserInfoModel>(model, "userinfo");
-            if (res > 0)
+            if (InitUserSetting(model))
             {
-                return SuccessMsg("注册成功");
+                if (res > 0)
+                {
+                    return SuccessMsg("注册成功");
+                }
+                else
+                {
+                    return Error("网络繁忙，请明日再试！");
+                }
             }
             else {
-                return Error("网络繁忙，请明日再试！");
+                return Error("网络繁忙");
             }
 
+        }
+
+        private bool InitUserSetting(Model.UserInfoModel model) {
+            List<Model.Base_TypeModel> list = new List<Model.Base_TypeModel>();
+            Model.Base_TypeModel btmodel = new Model.Base_TypeModel();
+            btmodel.Create();
+            btmodel.create_user = model.id;
+            btmodel.state = 1;
+            btmodel.name = "转存支出";
+            btmodel.sort = 9999999;
+            list.Add(btmodel);
+            btmodel = new Model.Base_TypeModel();
+            btmodel.Create();
+            btmodel.create_user = model.id;
+            btmodel.state = 1;
+            btmodel.name = "借款收入";
+            btmodel.sort = 9999999;
+            list.Add(btmodel);
+            btmodel = new Model.Base_TypeModel();
+            btmodel.Create();
+            btmodel.create_user = model.id;
+            btmodel.state = 1;
+            btmodel.name = "取款收入";
+            btmodel.sort = 9999999;
+            list.Add(btmodel);
+            btmodel = new Model.Base_TypeModel();
+            btmodel.Create();
+            btmodel.create_user = model.id;
+            btmodel.state = 1;
+            btmodel.name = "还款支出";
+            btmodel.sort = 9999999;
+            list.Add(btmodel);
+            int res = dal.InsertListSql<Model.Base_TypeModel>(list,"Base_Type");
+            if (res == 4)
+            {
+                return true;
+            }
+            else {
+                return false;
+            }
         }
 
         /// <summary>

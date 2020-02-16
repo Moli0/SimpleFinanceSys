@@ -63,7 +63,7 @@ namespace SimpleFinanceSys.Controllers
                 string table = @"ChangeRecord t1
 		left join Base_Type t2 on t2.id = t1.payType
 		left join Base_Object t3 on t3.id = t1.payObject";
-                ds = DAL.Helper.GetPaginList(pagin, table, "t1.*,t2.name typeName,t3.name objectName", cond);
+                ds = DAL.Helper.GetPaginList(pagin, table, "t1.*,t2.name typeName,t3.name objectName,convert(varchar(100),t1.create_time,120) create_timeStr", cond);
                 DataTable dt = ds.Tables[0];
                 pagin.counts = dal.GetCount(cond);
                 return Success(Newtonsoft.Json.JsonConvert.SerializeObject(dt),pagin);

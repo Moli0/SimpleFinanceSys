@@ -9,258 +9,459 @@
 
     </div>
 </div>
+<style>
+    .fa-facebook:before {
+        content: "今日统计";
+    }
 
+    .fa-twitter:before {
+        content: "本月统计";
+    }
 
-<div class="row">
+    .fa-linkedin:before {
+        content: "年度统计";
+    }
 
-
-    <div class="col-md-3">
-        <style>
-            .fa-facebook:before {
-                content: "今日统计";
-            }
-
-            .fa-twitter:before {
-                content: "本月统计";
-            }
-
-            .fa-linkedin:before {
-                content: "年度统计";
-            }
-
-            .fa-google-plus:before {
-                content: "历史统计";
-            }
-        </style>
-        <div class="social-box facebook">
-            <i class="fa fa-facebook"></i>
-            <ul style="border-top: 1px #ccc solid;">
-                <li>
-                    <strong>256k</strong>
-                    <span>收入账单数量</span>
-                </li>
-                <li>
-                    <strong>359</strong>
-                    <span>支出账单数量</span>
-                </li>
-            </ul>
-        </div>
-        <!--/social-box-->
-
-    </div>
-    <!--/col-->
-
-    <div class="col-md-3">
-
-        <div class="social-box twitter">
-            <i class="fa fa-twitter"></i>
-            <ul>
-                <li>
-                    <strong>1562k</strong>
-                    <span>收入账单数量</span>
-                </li>
-                <li>
-                    <strong>2562</strong>
-                    <span>支出账单数量</span>
-                </li>
-            </ul>
-        </div>
-        <!--/social-box-->
-
-    </div>
-    <!--/col-->
-
-    <div class="col-md-3">
-
-        <div class="social-box linkedin">
-            <i class="fa fa-linkedin"></i>
-            <ul>
-                <li>
-                    <strong>8926</strong>
-                    <span>收入账单数量</span>
-                </li>
-                <li>
-                    <strong>6253</strong>
-                    <span>支出账单数量</span>
-                </li>
-            </ul>
-        </div>
-        <!--/social-box-->
-
-    </div>
-    <!--/col-->
-
-    <div class="col-md-3">
-
-        <div class="social-box google-plus">
-            <i class="fa fa-google-plus"></i>
-            <ul>
-                <li>
-                    <strong>962</strong>
-                    <span>收入账单数量</span>
-                </li>
-                <li>
-                    <strong>256</strong>
-                    <span>支出账单数量</span>
-                </li>
-            </ul>
-        </div>
-        <!--/social-box-->
-
-    </div>
-    <!--/col-->
-
-</div>
-<!--/row-->
-<div class="row">
-    <div class="col-lg-6 col-md-12">
-
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2><i class="fa fa-spinner red"></i><strong>近期账单</strong></h2>
-                <div class="panel-actions">
-                    <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
-                    <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
-                    <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
-                </div>
-                <ul class="nav nav-tabs" id="recent">
-                    <li class="active"><a href="index.html#tasks">支出</a></li>
-                    <li><a href="index.html#tickets">收入</a></li>
-                </ul>
-            </div>
-            <div class="panel-body">
-                <div class="tab-content">
-                    <div class="tab-pane active" id="tasks" style="min-height: 290px;">
-                        <table class="table bootstrap-datatable datatable small-font">
-                            <thead>
-                                <tr>
-                                    <th>消费对象</th>
-                                    <th>消费金额</th>
-                                    <th>消费时间</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-3 col-md-12">
-
-        <div class="panel panel-default">
-
-            <div class="panel-body text-center" style="height:347px">
-                <h2 class="lime">Sold Out</h2>
-                <div style="width:300px;left:50%;position:absolute;margin-left:-150px;">
-                    <canvas id="gauge1"></canvas>
-                </div>
-                <span class="pull-left"><strong class="blue">$256.256,25</strong></span>
-                <span class="pull-right"><i class="fa fa-arrow-circle-o-up text-success"></i> 52%</span>
-            </div>
-
-        </div>
-
-    </div><!--/.col-->
-
-    <div class="col-lg-3 col-md-12">
-
-        <div class="panel panel-default">
-
-            <div class="panel-body text-center" style="height:347px">
-                <h2 class="lime">Profit</h2>
-                <div style="width:300px;left:50%;position:absolute;margin-left:-150px;">
-                    <canvas id="gauge2"></canvas>
-                </div>
-                <span class="pull-left"><strong class="blue">$125.365,56</strong></span>
-                <span class="pull-right"><i class="fa fa-arrow-circle-o-up text-success"></i> 70%</span>
-            </div>
-
-        </div>
-
-    </div><!--/.col-->
-</div>
-<div class="row">
-
-    <div class="col-lg-9 col-md-12">
-
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2><i class="fa fa-bar-chart-o red"></i><strong>xCharts</strong></h2>
-                <div class="panel-actions">
-                    <a href="charts-xcharts.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
-                    <a href="charts-xcharts.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
-                    <a href="charts-xcharts.html#" class="btn-close"><i class="fa fa-times"></i></a>
-                </div>
-            </div>
-            <div class="panel-body">
-                <figure class="demo" id="chart" style="height: 300px"></figure>
-            </div>
-        </div>
-
-    </div><!--/col-->
-    <div class="col-lg-3 col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-body white-bg">
-                <br />
-                <div class="graph-container text-center">
-                    <div id="hero-donut" class="graph" style="height:315px;"></div>
-                </div>
-            </div>
-        </div>
-    </div><!--/.col-->
-</div><!--/row-->
-@*
+    .fa-google-plus:before {
+        content: "历史统计";
+    }
+</style>
+<div id="vueDiv">
     <div class="row">
 
-        <div class="col-lg-4 col-md-12">
-            <div class="panel panel-default calendar" style="padding-bottom:30px;">
-                <div class="calendar-small"></div>
-            </div>
-        </div><!--/col-->
 
-        <div class="col-lg-8 col-md-12">
+        <div class="col-md-3">
+            <div class="social-box facebook">
+                <i class="fa fa-facebook"></i>
+                <ul style="border-top: 1px #ccc solid;">
+                    <li>
+                        <strong>￥{{BoxTotalModel.dayInAmount}}</strong>
+                        <span>收入总计</span>
+                    </li>
+                    <li>
+                        <strong>￥{{BoxTotalModel.dayOutAmount}}</strong>
+                        <span>支出总计</span>
+                    </li>
+                </ul>
+            </div>
+            <!--/social-box-->
+
+        </div>
+        <!--/col-->
+
+        <div class="col-md-3">
+
+            <div class="social-box twitter">
+                <i class="fa fa-twitter"></i>
+                <ul>
+                    <li>
+                        <strong>￥{{BoxTotalModel.monthInAmount}}</strong>
+                        <span>收入总计</span>
+                    </li>
+                    <li>
+                        <strong>￥{{BoxTotalModel.monthOutAmount}}</strong>
+                        <span>支出总计</span>
+                    </li>
+                </ul>
+            </div>
+            <!--/social-box-->
+
+        </div>
+        <!--/col-->
+
+        <div class="col-md-3">
+
+            <div class="social-box linkedin">
+                <i class="fa fa-linkedin"></i>
+                <ul>
+                    <li>
+                        <strong>￥{{BoxTotalModel.yearInAmount}}</strong>
+                        <span>收入总计</span>
+                    </li>
+                    <li>
+                        <strong>￥{{BoxTotalModel.yearOutAmount}}</strong>
+                        <span>支出总计</span>
+                    </li>
+                </ul>
+            </div>
+            <!--/social-box-->
+
+        </div>
+        <!--/col-->
+
+        <div class="col-md-3">
+
+            <div class="social-box google-plus">
+                <i class="fa fa-google-plus"></i>
+                <ul>
+                    <li>
+                        <strong>{{BoxTotalModel.allInAmount}}</strong>
+                        <span>收入总计</span>
+                    </li>
+                    <li>
+                        <strong>{{BoxTotalModel.allOutAmount}}</strong>
+                        <span>支出总计</span>
+                    </li>
+                </ul>
+            </div>
+            <!--/social-box-->
+
+        </div>
+        <!--/col-->
+
+    </div>
+    <!--/row-->
+    <div class="row">
+        <div class="col-lg-6 col-md-12">
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h2><i class="fa fa-check red"></i><strong>To Do</strong></h2>
+                    <h2><i class="fa fa-spinner red"></i><strong>近期账单</strong></h2>
                     <div class="panel-actions">
                         <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
                         <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
                         <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
                     </div>
+                    <ul class="nav nav-tabs" id="recent">
+                        <li class="active"><a href="index.html#tasks">支出</a></li>
+                        <li><a href="index.html#tickets">收入</a></li>
+                    </ul>
                 </div>
-                <div class="panel-body no-padding">
-                    <div class="todo-list">
-                        <div class="header">Today</div>
-                        <ul id="todo-2" class="todo-list-tasks">
-                            <li>
-                                <label class="custom-checkbox-item pull-left">
-                                    <input class="custom-checkbox" type="checkbox" />
-                                    <span class="custom-checkbox-mark"></span>
-                                </label>
-                                <span class="desc">Add slider home to creative template</span>
-                            </li>
-                            <li>
-                                <label class="custom-checkbox-item pull-left">
-                                    <input class="custom-checkbox" type="checkbox" />
-                                    <span class="custom-checkbox-mark"></span>
-                                </label>
-                                <span class="desc">Change portfolio image with new animation</span>
-                            </li>
-                            <li>
-                                <label class="custom-checkbox-item pull-left">
-                                    <input class="custom-checkbox" type="checkbox" />
-                                    <span class="custom-checkbox-mark"></span>
-                                </label>
-                                <span class="desc">Fixed JavaScript problem for index page</span>
-                            </li>
-                        </ul>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tasks" style="min-height: 290px;">
+                            <table class="table bootstrap-datatable datatable small-font align-center">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>消费对象</th>
+                                        <th>消费金额</th>
+                                        <th>消费类型</th>
+                                        <th>编号</th>
+                                        <th>消费时间</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(item,i) in BillOutList">
+                                        <td>{{i+1}}</td>
+                                        <td>{{item.objectName}}</td>
+                                        <td>{{item.amount}}</td>
+                                        <td>{{item.typeName}}</td>
+                                        <td>{{item.orderId}}</td>
+                                        <td>{{item.create_timeStr}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="tickets" style="min-height: 290px;">
+                            <table class="table bootstrap-datatable datatable small-font align-center">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>收入来源</th>
+                                        <th>收入金额</th>
+                                        <th>收入类型</th>
+                                        <th>编号</th>
+                                        <th>收入时间</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(item,i) in BillInList">
+                                        <td>{{i+1}}</td>
+                                        <td>{{item.objectName}}</td>
+                                        <td>{{item.amount}}</td>
+                                        <td>{{item.typeName}}</td>
+                                        <td>{{item.orderId}}</td>
+                                        <td>{{item.create_timeStr}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-12">
+
+            <div class="panel panel-default">
+
+                <div class="panel-body text-center" style="height:347px">
+                    <h2 class="lime">今日现金支出</h2>
+                    <div style="width:300px;left:50%;position:absolute;margin-left:-150px;">
+                        <canvas id="gauge1"></canvas>
+                    </div>
+                    <span class="pull-left font-size-14"><strong class="blue">￥{{NumberToFiexd(CashOut,2)}}</strong></span>
+                    <span class="pull-right font-size-14"><i class="fa fa-arrow-circle-o-up text-success"></i> {{NumberToFiexd((CashOut*100)/MaxCash,2)}}%</span>
+                </div>
+
+            </div>
+
+        </div><!--/.col-->
+
+        <div class="col-lg-3 col-md-12">
+
+            <div class="panel panel-default">
+
+                <div class="panel-body text-center" style="height:347px">
+                    <h2 class="lime">今日现金收入</h2>
+                    <div style="width:300px;left:50%;position:absolute;margin-left:-150px;">
+                        <canvas id="gauge2"></canvas>
+                    </div>
+                    <span class="pull-left font-size-14"><strong class="blue">￥{{NumberToFiexd(CashIn,2)}}</strong></span>
+                    <span class="pull-right font-size-14"><i class="fa fa-arrow-circle-o-up text-success"></i> {{NumberToFiexd((CashIn*100)/MaxCash,2)}}%</span>
+                </div>
+
+            </div>
+
+        </div><!--/.col-->
+    </div>
+    <div class="row">
+
+        <div class="col-lg-9 col-md-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2><i class="fa fa-bar-chart-o red"></i><strong>上周收支统计</strong></h2>
+                    <div class="panel-actions">
+                        <a href="charts-xcharts.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                        <a href="charts-xcharts.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+                        <a href="charts-xcharts.html#" class="btn-close"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <figure class="demo" id="chart" style="height: 351px"></figure>
+                </div>
+                <div style="height:24px;overflow:hidden;padding-left:150px;">
+                    <div class="inline-item" style="width:50px;height:24px;">
+                        <div style="width:50px;height:2px;background-color:#0f0;margin-top:11px;"></div>
+                    </div>
+                    <div class="inline-item" style="width:50px;height:24px;padding-left:10px;">收入</div>
+                    <div class="inline-item" style="width:50px;height:24px;">
+                        <div style="width:50px;height:2px;background-color:#00c;margin-top:11px;margin-left:200px;"></div>
+                    </div>
+                    <div class="inline-item" style="width:50px;height:24px;padding-left:10px;">支出</div>
                 </div>
             </div>
 
         </div><!--/col-->
-
+        <div class="col-lg-3 col-md-12">
+            <div class="panel panel-default calendar" style="padding-bottom:30px;">
+                <div class="calendar-small"></div>
+            </div>
+        </div><!--/col-->
     </div><!--/row-->
-*@
+</div>
+<script>
+    var vueModel = new Vue({
+        el: "#vueDiv",
+        data: {
+            BoxTotalModel: {},
+            BillInList: [],
+            BillOutList: [],
+            CashOut: 0,
+            CashIn: 0,
+            MaxCash: 1,
+            inTotalForDay: [],
+            outTotalForDay: [],
+        },
+        methods: {
+            NumberToFiexd: function (number, len) {
+                return GetToFixed(number,len);
+            }
+        }
+    });
+
+    $(function () {
+        GetBoxTotalModel();
+        GetBillList();
+        GetMaxCash();
+        GetinTotalForDay();
+    });
+
+    function GetBoxTotalModel() {
+        $.ajax({
+            url: '/Index/GetBoxTotalModel',
+            type: 'Get',
+            success: function (res) {
+                res.model = JSON.parse(res.model);
+                vueModel.BoxTotalModel = res.model[0];
+                vueModel.CashOut = res.model[0].dayOutAmount;
+                vueModel.CashIn = res.model[0].dayInAmount;
+            }
+        });
+    }
+
+    function GetBillList() {
+        $.ajax({
+            url: '/Bill/GetBillList?orderType=0',
+            data: {
+                PageSize: 7,
+                PageIndex: 1,
+                NowPage: 1,
+                Sort: "create_time desc"
+            },
+            type: 'Get',
+            success: function (res) {
+                res.model = JSON.parse(res.model);
+                vueModel.BillInList = res.model;
+                if (res.model.length > 0) {
+                    $($("#tasks").find(".odd")).remove();
+                }
+            }
+        });
+        $.ajax({
+            url: '/Bill/GetBillList?orderType=1',
+            data: {
+                PageSize: 7,
+                PageIndex: 1,
+                NowPage: 1,
+                Sort: "create_time desc"
+            },
+            type: 'Get',
+            success: function (res) {
+                res.model = JSON.parse(res.model);
+                vueModel.BillOutList = res.model;
+                if (res.model.length > 0) {
+                    $($("#tickets").find(".odd")).remove();
+                }
+            }
+        });
+    }
+
+    function GetMaxCash() {
+        $.ajax({
+            url: '/Index/GetMaxMoney',
+            type: 'Get',
+            success: function (res) {
+                res.model = JSON.parse(res.model);
+                vueModel.MaxCash = res.model[0].amount;
+                setTimeout(function () {
+                    SetOpts1(vueModel.MaxCash, vueModel.CashOut);
+                    SetOpts2(vueModel.MaxCash, vueModel.CashIn);
+                }, 10);
+            }
+        });
+
+    }
+
+    function GetinTotalForDay() {
+        $.ajax({
+            url: '/Index/GetTotalForDay',
+            type: 'Get',
+            success: function (res) {
+                res.model = JSON.parse(res.model);
+                console.log(res.model);
+                var arr = new Array();
+                for (var i = 7; i > 0; i--) {
+                    arr.push(GetDateStr(i * -1));
+                }
+                $.each(arr, function (i, item) {
+                    var inParam = {
+                        y: 0,
+                        x: item
+                    };
+                    var outParam = {
+                        y: 0,
+                        x: item
+                    };
+                    $.each(res.model, function (j, jitem) {
+                        if (item == jitem.create_date) {
+                            inParam = {
+                                y: jitem.dayInAmount,
+                                x: item
+                            };
+                            outParam = {
+                                y: jitem.dayOutAmount,
+                                x: item
+                            };
+                            return;
+                        }
+                    });
+                    vueModel.inTotalForDay.push(inParam);
+                    vueModel.outTotalForDay.push(outParam);
+                });
+                setTimeout(function () {
+                    SetChart();
+                }, 200);
+            }
+        });
+    }
+
+    function SetOpts1(maxValue, nowValue) {
+        var opts = {
+            lines: 11, // The number of lines to draw
+            angle: 0.03, // The length of each line
+            lineWidth: 0.43, // The line thickness
+            pointer: {
+                length: 0.74, // The radius of the inner circle
+                strokeWidth: 0.034, // The rotation offset
+                color: '#484848' // Fill color
+            },
+            limitMax: 'false',   // If true, the pointer will not go past the end of the gauge
+            colorStart: '#f4b162',   // Colors
+            colorStop: '#f4b162',    // just experiment with them
+            strokeColor: '#f5f5f5',   // to see which ones work best for you
+            generateGradient: true
+        };
+        var target = document.getElementById('gauge1'); // your canvas element
+        var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+        gauge.maxValue = maxValue; // set max gauge value
+        gauge.animationSpeed = 80; // set animation speed (32 is default value)
+        gauge.set(nowValue); // set actual value
+    }
+
+    function SetOpts2(maxValue, nowValue) {
+        var opts2 = {
+            lines: 11, // The number of lines to draw
+            angle: 0.03, // The length of each line
+            lineWidth: 0.43, // The line thickness
+            pointer: {
+                length: 0.74, // The radius of the inner circle
+                strokeWidth: 0.034, // The rotation offset
+                color: '#484848' // Fill color
+            },
+            limitMax: 'false',   // If true, the pointer will not go past the end of the gauge
+            colorStart: '#71d398',   // Colors
+            colorStop: '#71d398',    // just experiment with them
+            strokeColor: '#f5f5f5',   // to see which ones work best for you
+            generateGradient: true
+        };
+        var target = document.getElementById('gauge2'); // your canvas element
+        var gauge = new Gauge(target).setOptions(opts2); // create sexy gauge!
+        gauge.maxValue = maxValue; // set max gauge value
+        gauge.animationSpeed = 80; // set animation speed (32 is default value)
+        gauge.set(nowValue); // set actual value
+    }
+
+    function SetChart() {
+        var data = [
+            {
+                "xScale": "ordinal", "comp": [],
+                "main": [
+                    {
+                        "className": ".main.l1",
+                        "data": vueModel.outTotalForDay
+                    },
+                    {
+                        "className": ".main.l2",
+                        "data": vueModel.inTotalForDay
+                    }
+                ], "type": "line-dotted", "yScale": "linear"
+            },
+            {
+                "xScale": "ordinal", "comp": [],
+                "main": [
+                    {
+                        "className": ".main.l1",
+                        "data": vueModel.outTotalForDay
+                    },
+                    {
+                        "className": ".main.l2",
+                        "data": vueModel.inTotalForDay
+                    }], "type": "bar", "yScale": "linear"
+            }
+        ];
+        SetCharts(data);
+    }
+</script>

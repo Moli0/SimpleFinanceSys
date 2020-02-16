@@ -1,5 +1,6 @@
-﻿@{
-    ViewBag.Title = "账单详情";
+﻿
+@{
+    ViewBag.Title = "RepaymentManagement";
 }
 <div class="row">
     <div class="boxpadding">
@@ -13,19 +14,6 @@
             <span><input class="form-control" style="width:200px;display:inline-block" type="text" name="search_startTime" id="search_startTime" value="" placeholder="按日期（开始）查询" /></span>
             <span><input class="form-control" style="width:200px;display:inline-block" type="text" name="search_endTime" id="search_endTime" value="" placeholder="按日期（结束）查询" /></span>
             <span>
-                <select class="form-control" style="width:200px;display:inline-block" name="search_orderType" id="search_orderType">
-                    <option value="">--按记账类型查询--</option>
-                    <option value="0">收入</option>
-                    <option value="1">支出</option>
-                    <option value="2">修正</option>
-                </select>
-            </span>
-            <span>
-                <select class="form-control" style="width:200px;display:inline-block" name="search_payType" id="search_payType">
-                    <option value="">--按账单类型查询--</option>
-                </select>
-            </span>
-            <span>
                 <select class="form-control" style="width:200px;display:inline-block" name="search_payObject" id="search_payObject">
                     <option value="">----按账单对象查询----</option>
                 </select>
@@ -35,7 +23,7 @@
     </div>
     <div class="col-sm-12">
         <div class="white-box">
-            <h3 class="box-title">账单列表</h3>
+            <h3 class="box-title">借款记录</h3>
             <div class="table-responsive boxpadding">
                 <table id="mytable"></table>
                 <div id="mytablePage"></div>
@@ -56,7 +44,7 @@
         _form("#search_year").bindSelect({
             url: "/Bill/GetYearForBill",
             type: "GET",
-            defaultNull:true,
+            defaultNull: true,
             dataType: "string",
             id: "create_year",
             text: "create_year"
@@ -64,15 +52,7 @@
         _form("#search_payObject").bindSelect({
             url: "/Setting/GetObjects",
             type: "GET",
-            defaultNull:true,
-            dataType: "string",
-            id: "id",
-            text: "name"
-        });
-        _form("#search_payType").bindSelect({
-            url: "/Setting/GetTypes",
-            type: "GET",
-            defaultNull:true,
+            defaultNull: true,
             dataType: "string",
             id: "id",
             text: "name"
@@ -81,39 +61,27 @@
 
     function grid() {
         _frame("#mytable").table({
-            url: "/Bill/GetBillList",
+            url: "/Loan/GetList?type=3",
             dataType: 'string',
             type: 'GET',
             columns: [
                 { name: "id", index: "id", width: 80, hidden: true },
-                {
-                    name: "记账类型", index: "orderType", width: 120, format: function (rowid, rowdata) {
-                        if (rowdata.orderType == 0) {
-                            return "收入";
-                        } else if (rowdata.orderType == 1) {
-                            return "支出";
-                        } else if (rowdata.orderType == 2) {
-                            return "修正";
-                        } else {
-                            return "未知";
-                        }
-                    }
-                },
                 { name: "订单编号", index: "orderId", width: 120 },
-                { name: "记账前金额", index: "beforeAmount", width: 120, format: "money" },
-                { name: "记账后金额", index: "afterAmount", width: 120, format: "money" },
+                { name: "摘要", index: "title", width: 300 },
+                { name: "还款金额", index: "amount", width: 120, format: "money" },
+                { name: "待还金额", index: "nowAmount", width: 120, format: "money",hidden:true },
+                { name: "账单对象", index: "objectName", width: 150 },
+                { name: "关联订单编号", index: "topOrderId", width: 120 },
+                { name: "备注信息", index: "remark", width: 300 },
                 {
-                    name: "记账金额", index: "amount", width: 120, format: function (rowid, rowdata) {
-                        if (rowdata.orderType == 1) {
-                            return "-" + GetToFixed(rowdata.amount, 2);
+                    name: "已核销", index: "isFinish", width: 150,hidden:true, format: function (rowid, rowdata) {
+                        if (rowdata.isFinish == 1) {
+                            return "是";
                         } else {
-                            return GetToFixed(rowdata.amount, 2);
+                            return "否";
                         }
                     }
                 },
-                { name: "账单类型", index: "typeName", width: 150 },
-                { name: "账单对象", index: "objectName", width: 150 },
-                { name: "备注信息", index: "remark", width: 300 },
                 { name: "创建时间", index: "create_time", width: 200, format: "date:yyyy-MM-dd HH:mm:ss" },
             ],
             loaded: function () {
@@ -125,14 +93,11 @@
     function SetRowColor() {
         var rowCount = $("#mytable tr").length;
         for (var i = 1; i < rowCount; i++) {
-            var DOM = $("#_frame_orderType_" + i);
-            if ($(DOM).text() == "收入") {
+            var DOM = $("#_frame_isFinish_" + i);
+            if ($(DOM).text() == "是") {
                 $($(DOM).parent()).css("background-color", "#bfb")
-
-            } else if ($(DOM).text() == "支出") {
-                $($(DOM).parent()).css("background-color", "#fbb")
-            } else if ($(DOM).text() == "修正") {
-                $($(DOM).parent()).css("background-color", "#bbf")
+            } else {
+                $($(DOM).parent()).css("background-color", "#bfb")
             }
         }
     }
@@ -141,13 +106,10 @@
         var param = {
             key: $("#search_key").val(),
             year: $("#search_year").val(),
-            orderType: $("#search_orderType").val(),
             startTime: $("#search_startTime").val(),
             endTime: $("#search_endTime").val(),
-            payType:$("#search_payType").val(),
-            payObject:$("#search_payObject").val(),
+            payObject: $("#search_payObject").val(),
         };
         _frame("#mytable").setParamAndLoad(param);
     }
-</script>
-
+</script></script>

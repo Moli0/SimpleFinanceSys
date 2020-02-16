@@ -7,3 +7,4 @@ E:\毕设代做\16信管张雯丽\project\SimpleFinanceSys\SimpleFinanceSys\Mode
 E:\毕设代做\16信管张雯丽\project\SimpleFinanceSys\SimpleFinanceSys\Model\bin\Debug\Model.pdb
 E:\毕设代做\16信管张雯丽\project\SimpleFinanceSys\SimpleFinanceSys\Model\obj\Debug\Model.dll
 E:\毕设代做\16信管张雯丽\project\SimpleFinanceSys\SimpleFinanceSys\Model\obj\Debug\Model.pdb
+E:\毕设代做\16信管张雯丽\project\SimpleFinanceSys\SimpleFinanceSys\Model\obj\Debug\Model.csprojAssemblyReference.cache

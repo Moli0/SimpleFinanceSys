@@ -2,7 +2,7 @@
 //import { parse } from "path";
 
 var myconfig = {
-    PageSize: 50,
+    PageSize: 20,
     PageIndex: 1,
     Sort: "create_time desc",
     count: 0,
@@ -649,7 +649,16 @@ function loadedFunction(fun) {
     fun();
 }
 
-
+//日期计算
+//<AddDayCount>:数值，-1表示前一天，1表示后一天
+function GetDateStr(AddDayCount) {
+    var dd = new Date();
+    dd.setDate(dd.getDate() + AddDayCount);//获取AddDayCount天后的日期
+    var y = dd.getFullYear();
+    var m = dd.getMonth() + 1;//获取当前月份的日期
+    var d = dd.getDate();
+    return formatIntNumberToStr(y, 4) + "-" + formatIntNumberToStr(m, 2) + "-" + formatIntNumberToStr(d,2);
+} 
 ///
 // 调用示例
 ///

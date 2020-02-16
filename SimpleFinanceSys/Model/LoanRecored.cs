@@ -2,10 +2,10 @@
 namespace Model
 {
     /// <summary>
-    ///LoanRecored表实体模型
-    /// 
-    /// 创建时间:2020-02-03 10:20:55
-    /// </summary>
+	///LoanRecored表实体模型
+	/// 作者:[Lin Moli]
+	/// 创建时间:2020-02-16 14:21:34
+	/// </summary>
     [Serializable]
     public partial class LoanRecoredModel : BasePModel, IBaseModel
     {
@@ -19,6 +19,46 @@ namespace Model
         {
             set { _recordType = value; }
             get { return _recordType; }
+        }
+
+        private string _orderId;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string orderId
+        {
+            set { _orderId = value; }
+            get { return _orderId; }
+        }
+
+        private string _topOrderId;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string topOrderId
+        {
+            set { _topOrderId = value; }
+            get { return _topOrderId; }
+        }
+
+        private string _title;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string title
+        {
+            set { _title = value; }
+            get { return _title; }
+        }
+
+        private string _orderObject;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string orderObject
+        {
+            set { _orderObject = value; }
+            get { return _orderObject; }
         }
 
         private string _amount;
@@ -51,11 +91,11 @@ namespace Model
             get { return _interestRate; }
         }
 
-        private DateTime _endTime;
+        private DateTime? _endTime;
         /// <summary>
         /// 
         /// </summary>
-        public DateTime endTime
+        public DateTime? endTime
         {
             set { _endTime = value; }
             get { return _endTime; }

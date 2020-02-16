@@ -99,6 +99,67 @@
             InitRecordSelect();
         }
 
+        function LoanRecord(type) {
+            var title = "";
+            switch (type) {
+                case 0: title = "存款"; break;
+                case 1: title = "借款"; break;
+                case 2: title = "取款"; break;
+                default: title = "还款"; break;
+            }
+            _open({
+                type: 0,
+                id: "LoanRecordWindow",
+                title: title,
+                content: $("#LoanHtml").html(),
+                width: 800,
+                height: 600,
+                btn: ["确认", "取消"],
+                yes: function () {
+                    $.ajax({
+                        url: '/Loan/AddLoan',
+                        data: $("#loanForm").serializeArray(),
+                        type: "POST",
+                        success: function (res) {
+                            _alert(res.msg, "ok");
+                        }
+                    });
+                }
+            });
+
+            $("#recordType").val(type);
+            $("#recordTypeSelect").val(type);
+            _form("#orderObject").bindSelect({
+                url: "/Setting/GetObjects",
+                type: "GET",
+                dataType: "string",
+                id: "id",
+                text: "name"
+            });
+            if (type == 3) {
+                $("#idTR").show();
+                $("#amountTips").text("*选择关联记录后显示待还金额");
+                _form("#oldId").bindSelect({
+                    url: '/Loan/GetLoanIdList',
+                    type: 'GET',
+                    id: "orderId",
+                    text: "title",
+                });
+            }
+        }
+
+        function oldIdChange() {
+            var orderid = $("#oldId").val();
+            $.ajax({
+                url: '/Loan/GetModel',
+                data: { orderId: orderid },
+                type: "Get",
+                success: function (res) {
+                    $("#amountTips").text("*待还金额为:" + res.model.nowAmount + "元");
+                }
+            });
+        }
+
         function ChangeSelfMoney() {
             _open({
                 type: 0,
@@ -240,11 +301,101 @@
             </form>
         </div>
     </script>
+    <script id="LoanHtml" type="text/html">
+        <div class="row">
+            <form id="loanForm">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>记录类型</th>
+                            <td>
+                                <input type="hidden" id="recordType" name="recordType" />
+                                <select id="recordTypeSelect" name="recordTypeSelect" class="form-control">
+                                    <option value="0">存款</option>
+                                    <option value="1">借款</option>
+                                    <option value="2">取款</option>
+                                    <option value="3">还款</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr id="idTR" class="display-none">
+                            <th id="idTH">关联记录</th>
+                            <td>
+                                <select class="form-control" type="text" name="oldId" id="oldId" readonly="readonly" onchange="oldIdChange()">
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>存(借)款对象</th>
+                            <td>
+                                <select id="orderObject" name="orderObject" class="form-control">
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>摘要</th>
+                            <td>
+                                <input type="text" class="form-control" name="title" id="title" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>金额</th>
+                            <td>
+                                <input type="number" class="form-control" name="amount" id="amount" />
+                                <span id="amountTips" class="font-color-red">*如有利息产生，建议将其包含在内</span>
+                            </td>
+                        </tr>
+                        <tr class="display-none">
+                            <th>利率结算方式</th>
+                            <td>
+                                <select id="interestRateType" name="interestRateType" class="form-control">
+                                    <option value="0">月分期</option>
+                                    <option value="1">定期</option>
+                                    <option value="2">年结</option>
+                                    <option value="3">季度结</option>
+                                    <option value="4">月结</option>
+                                    <option value="5">日结</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="display-none">
+                            <th>利率(%)</th>
+                            <td>
+                                <input type="number" class="form-control" name="interestRate" id="interestRate" max="100" />
+                                <span class="font-color-red">*请以百分比形式填写，如千分之五则填0.5最大值为100</span>
+                            </td>
+                        </tr>
+                        <tr class="display-none">
+                            <th>到期日</th>
+                            <td>
+                                <input type="number" class="form-control" name="endTime" id="endTime" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>钱款走向</th>
+                            <td>
+                                <select id="isCash" name="isCash" class="form-control">
+                                    <option value="0">非现金余额</option>
+                                    <option value="1">现金余额</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>备注</th>
+                            <td>
+                                <textarea type="number" class="form-control" name="remark" id="remark" style="resize:none;" maxlength="1024"></textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </script>
 </head>
 
 <body>
     <!-- start: Header -->
-    <div class="navbar" role="navigation">
+    <div class="navbar" role="navigation" id="headDiv">
 
         <div class="container-fluid">
 
@@ -255,30 +406,18 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown visible-md visible-lg">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell-o"></i><span class="badge">1</span></a>
-                    <ul class="dropdown-menu">
-                        <li class="clearfix" style="line-height: 40px;">
-                            <i class="fa fa-comment"></i>
-                            <a href="#" class="notification-user" style="line-height: 25px; height: 25px;">还款提醒 </a>
-                            <span class="notification-action">您本月有一笔借款需要还款，请及时处理！ </span>
-                            <a href="#" class="notification-link" style="line-height: 25px; height: 25px;">知道了</a>
-                        </li>
-
-                    </ul>
-                </li>
-                <li class="dropdown visible-md visible-lg">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img class="user-avatar" src="/Content/IndexStyleScript/assets/img/avatar.jpg" alt="user-mail">jhonsmith@mail.com
+                        <img class="user-avatar" v-bind:src="userHeadUrl" alt="user-mail">{{userEmail}}
                     </a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-menu-header">
                             <strong>资产统计</strong>
                         </li>
                         <li>
-                            <p>总资产：￥13020.00</p>
-                            <p>现金：￥5000.00</p>
-                            <p>存款：￥11040.00</p>
-                            <p>借款：￥3020.00</p>
+                            <p>总资产：￥{{totalAmount}}</p>
+                            <p>现金：￥{{cash}}</p>
+                            <p>存款：￥{{deposit}}</p>
+                            <p>借款：￥{{liabilities}}</p>
                         </li>
                         <li class="divider"></li>
                         <li><a href="index"><i class="fa fa-sign-out"></i>注消登陆</a></li>
@@ -301,7 +440,7 @@
 
                 <div class="sidebar-collapse">
                     <div class="sidebar-header t-center">
-                        <span><i class="fa fa-laptop fa-2x blue"></i>个人财务管理系统</span>
+                        <a href="/Index"><span><i class="fa fa-laptop fa-2x blue"></i>个人财务管理系统</span></a>
                     </div>
                     <div class="sidebar-menu">
                         <ul class="nav nav-sidebar">
@@ -319,17 +458,19 @@
                             <li>
                                 <a href="#"><i class="fa fa-table"></i><span class="text">借款管理</span> <span class="fa fa-angle-down pull-right"></span></a>
                                 <ul class="nav sub">
-                                    <li><a href="chart-flot"><i class="fa fa-random"></i><span class="text">新增借款</span></a></li>
-                                    <li><a href="chart-xchart"><i class="fa fa-bar-chart-o"></i><span class="text">借款记录</span></a></li>
-                                    <li><a href="chart-other"><i class="fa fa-retweet"></i><span class="text">还款管理</span></a></li>
+                                    <li><a href="javascript:LoanRecord(1);"><i class="fa fa-random"></i><span class="text">借款</span></a></li>
+                                    <li><a href="javascript:LoanRecord(3);"><i class="fa fa-retweet"></i><span class="text">还款</span></a></li>
+                                    <li><a href="/Loan/LoanManagement"><i class="fa fa-bar-chart-o"></i><span class="text">借款记录</span></a></li>
+                                    <li><a href="/Loan/RepaymentManagement"><i class="fa fa-bar-chart-o"></i><span class="text">还款记录</span></a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="#"><i class="fa fa-briefcase"></i><span class="text">存款管理</span> <span class="fa fa-angle-down pull-right"></span></a>
                                 <ul class="nav sub">
-                                    <li><a href="ui-sliders-progress"><i class="fa fa-random"></i><span class="text">新增存款</span></a></li>
-                                    <li><a href="ui-nestable-list"><i class="fa fa-bar-chart-o"></i><span class="text">存款记录</span></a></li>
-                                    <li><a href="ui-elements"><i class="fa fa-retweet"></i><span class="text">取款管理</span></a></li>
+                                    <li><a href="javascript:LoanRecord(0)"><i class="fa fa-random"></i><span class="text">存款</span></a></li>
+                                    <li><a href="javascript:LoanRecord(2);"><i class="fa fa-retweet"></i><span class="text">取款</span></a></li>
+                                    <li><a href="/Loan/DepositManagement"><i class="fa fa-bar-chart-o"></i><span class="text">存款记录</span></a></li>
+                                    <li><a href="/Loan/DrawMoneyManagement"><i class="fa fa-bar-chart-o"></i><span class="text">取款记录</span></a></li>
                                 </ul>
                             </li>
                             <li>
@@ -367,7 +508,7 @@
                             <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
                         </div>
                     </div>			 -->
-                    <div class="desc">￥1,3020.00</div>
+                    <div class="desc">￥{{totalAmount}}</div>
                 </li>
                 <li>
                     <div class="title">现金</div>
@@ -376,7 +517,7 @@
                             <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%"></div>
                         </div>
                     </div>			 -->
-                    <div class="desc">￥5000.00</div>
+                    <div class="desc">￥{{cash}}</div>
                 </li>
                 <li>
                     <div class="title">存款</div>
@@ -385,7 +526,7 @@
                             <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%"></div>
                         </div>
                     </div>			 -->
-                    <div class="desc">￥11040.00</div>
+                    <div class="desc">￥{{deposit}}</div>
                 </li>
                 <li>
                     <div class="title">负债</div>
@@ -394,7 +535,7 @@
                             <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%"></div>
                         </div>
                     </div>			 -->
-                    <div class="desc">￥3020.00</div>
+                    <div class="desc">￥{{liabilities}}</div>
                 </li>
             </ul>
         </div>
@@ -493,5 +634,59 @@
     <script src="/Content/IndexStyleScript/assets/js/pages/index.js"></script>
 
     <!-- end: JavaScript-->
+    <script>
+        var vueUser = new Vue({
+            el: "#headDiv",
+            data: {
+                totalAmount: 0,
+                cash: 0,
+                deposit: 0,
+                liabilities: 0,
+                userHeadUrl: "",
+                userEmail: ""
+            }
+        });
+        var vueUsage = new Vue({
+            el: "#usage",
+            data: {
+                totalAmount: 0,
+                cash: 0,
+                deposit: 0,
+                liabilities: 0,
+            }
+        });
+        $(function () {
+            $.ajax({
+                url: '/Account/GetUserInfo',
+                type: 'GET',
+                success: function (res) {
+                    if (res.model.state > 0) {
+                        vueUser.cash = GetToFixed(res.model.nowMoney,2);
+                    } else {
+                        vueUser.cash = 0;
+                        vueUser.deposit = 0;
+                        vueUser.liabilities = 0;
+                        vueUser.totalAmount = 0;
+                    }
+                    vueUser.userHeadUrl = res.model.headUrl;
+                    vueUser.userEmail = res.model.email;
+                    $.ajax({
+                        url: '/Index/GetTotalAmount',
+                        type: 'GET',
+                        success: function (res) {
+                            res.model = JSON.parse(res.model)[0];
+                            vueUser.deposit = GetToFixed(res.model.DepositTotal,2);
+                            vueUser.liabilities = GetToFixed(res.model.loanTotal, 2);
+                            vueUser.totalAmount = GetToFixed(parseFloat(GetToFixed(vueUser.cash, 4)) + parseFloat(GetToFixed(vueUser.deposit, 4)) - parseFloat(GetToFixed(vueUser.liabilities, 4)), 2);
+                            vueUsage.totalAmount = vueUser.totalAmount;
+                            vueUsage.cash = vueUser.cash;
+                            vueUsage.deposit = vueUser.deposit;
+                            vueUsage.liabilities = vueUser.liabilities;
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
