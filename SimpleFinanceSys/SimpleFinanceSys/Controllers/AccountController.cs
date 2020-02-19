@@ -24,7 +24,7 @@ namespace SimpleFinanceSys.Controllers
         public ActionResult SubmitInfo(Model.UserInfoModel model) {
             var user = base.GetUser();
             if (user == null) {
-                return Error("登陆已过期，请重新登陆");
+                return Error("登录已过期，请重新登录");
             }
             if (user.userid != model.userid) {
                 return Error("非法的操作，请刷新后重试！");
@@ -51,7 +51,7 @@ namespace SimpleFinanceSys.Controllers
         public ActionResult GetUserInfo() {
             var user = GetUser();
             if (user == null) {
-                return Error("登陆已过期，请重新登陆");
+                return Error("登录已过期，请重新登录");
             }
             user.pwd = "";
             user.id = "";
@@ -69,7 +69,7 @@ namespace SimpleFinanceSys.Controllers
             }
             var user = GetUser();
             if (user == null) {
-                return Error("登陆已过期，请重新登陆！");
+                return Error("登录已过期，请重新登录！");
             }
 
             var model = new Model.UserInfoModel();
@@ -96,7 +96,7 @@ namespace SimpleFinanceSys.Controllers
             var user = GetUser();
             record.beforeAmount = user.nowMoney.ToString();
             if (user == null) {
-                return Error("登陆已过期，请重新登陆!");
+                return Error("登录已过期，请重新登录!");
             }
             double baseM = 0;
             double nowM = 0;

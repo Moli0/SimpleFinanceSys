@@ -71,7 +71,7 @@ namespace SimpleFinanceSys.Controllers
                 cookie.Expires = time.AddMinutes(600);
                 cookie.HttpOnly = true;
                 HttpContext.Response.Cookies.Add(cookie);
-                return Success("登陆成功");
+                return Success("登录成功");
             }
             else
             {

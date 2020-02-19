@@ -24,20 +24,33 @@ namespace Helpers
             {
                 filterContext.RequestContext.HttpContext.Response.StatusCode = 430;
                 var content = new ContentResult();
-                content.Content = "<script>window.top.location='/login';</script>";
+                content.Content = "<script>window.top.location='/Login';</script>";
                 content.ContentEncoding = Encoding.UTF8;
                 filterContext.Result = content;
                 return;
             }
             else
             {
+                string encodeCookie = helper.GetCookies("sign");
+                string loginTime = helper.GetCookies("loginTime");
+                if (encodeCookie != Helpers.Helper.MD5(userid + loginTime + "SFS") + Helpers.Helper.MD5(userid + "SFS")) {
+                    helper.DeleteCookies("user");
+                    helper.DeleteCookies("sign");
+                    helper.DeleteCookies("loginTime");
+                    filterContext.RequestContext.HttpContext.Response.StatusCode = 430;
+                    var content = new ContentResult();
+                    content.Content = "<script>window.top.location='/Login';</script>";
+                    content.ContentEncoding = Encoding.UTF8;
+                    filterContext.Result = content;
+                    return;
+                }
                 DAL.UserInfoDAL dal = new DAL.UserInfoDAL();
                 int userCount = dal.GetCount($"userid = '{userid}'");
                 if (userCount == 0)
                 {
                     filterContext.RequestContext.HttpContext.Response.StatusCode = 430;
                     var content = new ContentResult();
-                    content.Content = "<script>window.top.location='/login';</script>";
+                    content.Content = "<script>window.top.location='/Login';</script>";
                     content.ContentEncoding = Encoding.UTF8;
                     filterContext.Result = content;
                     return;

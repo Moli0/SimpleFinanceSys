@@ -32,8 +32,8 @@ namespace DAL
         public DataSet GetBoxTotalModel(string userid) {
             string sql = string.Format(@"select * from (
 	select 
-	sum((case when orderType = 0 then amount else 0 end )) dayInAmount,
-	sum((case when orderType = 1 then amount else 0 end )) dayOutAmount
+	sum((case when orderType = 0 then isnull(amount,0) else 0 end )) dayInAmount,
+	sum((case when orderType = 1 then isnull(amount,0) else 0 end )) dayOutAmount
 	from (
 		select CONVERT(VARCHAR(100),create_time,23) create_date,orderType,Sum(amount) amount
 		 from ChangeRecord where (orderType = 0 or orderType = 1) and CONVERT(VARCHAR(100),create_time,23) = CONVERT(VARCHAR(100),GETDATE(),23) and create_user = '{0}'
@@ -42,8 +42,8 @@ namespace DAL
  ) t1
  left join (
 	select 
-	sum((case when orderType = 0 then amount else 0 end )) monthInAmount,
-	sum((case when orderType = 1 then amount else 0 end )) monthOutAmount
+	sum((case when orderType = 0 then isnull(amount,0) else 0 end )) monthInAmount,
+	sum((case when orderType = 1 then isnull(amount,0) else 0 end )) monthOutAmount
 	from (
 		select LEFT(CONVERT(VARCHAR(100),create_time,23),7) create_date,orderType,Sum(amount) amount
 		 from ChangeRecord where (orderType = 0 or orderType = 1) and LEFT(CONVERT(VARCHAR(100),create_time,23),7) = LEFT(CONVERT(VARCHAR(100),GETDATE(),23),7) and create_user = '{0}'
@@ -52,8 +52,8 @@ namespace DAL
   ) t2 on 1=1
  left join (
 	select 
-	sum((case when orderType = 0 then amount else 0 end )) yearInAmount,
-	sum((case when orderType = 1 then amount else 0 end )) yearOutAmount
+	sum((case when orderType = 0 then isnull(amount,0) else 0 end )) yearInAmount,
+	sum((case when orderType = 1 then isnull(amount,0) else 0 end )) yearOutAmount
 	from (
 		select LEFT(CONVERT(VARCHAR(100),create_time,23),4) create_date,orderType,Sum(amount) amount
 		 from ChangeRecord where (orderType = 0 or orderType = 1) and LEFT(CONVERT(VARCHAR(100),create_time,23),4) = LEFT(CONVERT(VARCHAR(100),GETDATE(),23),4) and create_user = '{0}'
@@ -62,8 +62,8 @@ namespace DAL
   ) t3 on 1=1
  left join (
 	select 
-	sum((case when orderType = 0 then amount else 0 end )) allInAmount,
-	sum((case when orderType = 1 then amount else 0 end )) allOutAmount
+	sum((case when orderType = 0 then isnull(amount,0) else 0 end )) allInAmount,
+	sum((case when orderType = 1 then isnull(amount,0) else 0 end )) allOutAmount
 	from (
 		select orderType,Sum(amount) amount
 		 from ChangeRecord where (orderType = 0 or orderType = 1)  and create_user = '{0}'
@@ -74,7 +74,7 @@ namespace DAL
         }
 
         /// <summary>
-        /// 按天取得上周收入与支出合计
+        /// 按天取得近七日收入与支出合计
         /// </summary>
         /// <param name="userid"></param>
         /// <returns></returns>
@@ -85,7 +85,7 @@ namespace DAL
 	sum((case when orderType = 1 then amount else 0 end )) dayOutAmount
 	from (
 		select CONVERT(VARCHAR(100),create_time,23) create_date,orderType,Sum(amount) amount
-		 from ChangeRecord where (orderType = 0 or orderType = 1) and CONVERT(VARCHAR(100),create_time,23)  between CONVERT(VARCHAR(100),DATEADD(wk, DATEDIFF(wk,0,DATEADD(day,-7,getdate())), -1),23) and CONVERT(VARCHAR(100),DATEADD(wk, DATEDIFF(wk,0,DATEADD(day,-7,getdate())), 5),23) and create_user = '{0}'
+		 from ChangeRecord where (orderType = 0 or orderType = 1) and CONVERT(VARCHAR(100),create_time,23)  between CONVERT(VARCHAR(100),DATEADD(DAY, -7,getdate()),23) and CONVERT(VARCHAR(100),DATEADD(DAY, -1,getdate()),23) and create_user = '{0}'
 		 group by CONVERT(VARCHAR(100),create_time,23),orderType
 	 ) as x1 group by create_date", userid);
             return Helper.ExecuteSql(sql);

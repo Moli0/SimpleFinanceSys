@@ -1,0 +1,147 @@
+﻿@{
+    ViewBag.Title = "消费对象管理";
+}
+<div class="boxmargin">
+    <div class="font-size-18 interval-2" style="margin-left: 0px;">消费对象管理</div>
+    <div class="row boxpadding">
+        <div class="col-md-12 align-right">
+            <span class="btn font-color-green" onclick="OpenAddIframe()"><i class="glyphicon glyphicon-plus  font-size-12"></i>添加消费对象</span>
+            <span class="btn font-color-green" onclick="OpenAlterIframe()"><i class="fa fa-list-alt font-size-12"></i>修改</span>
+            <span class="btn font-color-red" onclick="dele()"><i class="glyphicon glyphicon-remove font-size-12"></i>删除</span>
+        </div>
+    </div>
+    <table id="mytable"></table>
+    <div id="mytablePage"></div>
+</div>
+<script id="ObjectWindow" type="text/html">
+    <div class="row">
+        <form id="typeForm">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>名称</th>
+                        <th>
+                            <input type="hidden" name="id" id="id" />
+                            <input class="form-control" type="text" name="name" id="name" maxlength="28" />
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>说明</th>
+                        <th>
+                            <textarea class="form-control" name="explain" id="explain"></textarea>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>排序</th>
+                        <th>
+                            <input class="form-control" type="number" name="sort" id="sort" />
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</script>
+<script>
+    $(function () {
+        grid();
+    });
+    function grid() {
+        _frame("#mytable").table({
+            url: "/Setting/GetObjects",
+            type:'GET',
+            //width:"1000px",
+            columns: [
+                { name: "id", index: "id", width: 80, hidden: true },
+                { name: "序号", index: "sort", width: 80 },
+                { name: "对象名", index: "name", width: 200 },
+                { name: "说明", index: "explain", width: 500 },
+                { name: "创建日期", index: "create_timeStr", width: 200, format: "date" },
+            ]
+        });
+
+    }
+
+    function OpenAddIframe() {
+        _open({
+            type: 0,
+            id: "AddObject",
+            title: "添加消费对象",
+            content: $("#ObjectWindow").html(),
+            width: 800,
+            height: 400,
+            btn: ["提交", "关闭"],
+            yes: function (index, layero) {
+                $.ajax({
+                    url: "/Setting/AddObject",
+                    data: $("#typeForm").serializeArray(),
+                    type: "POST",
+                    success: function (res) {
+                        _alert(res.msg, "ok");
+                        _frame("#mytable").target("reload");
+                    }
+                });
+            }
+        });
+    }
+    function OpenAlterIframe() {
+        var rowid = _frame("#mytable").getSelRowid();
+        var id = _frame("#mytable").getData(rowid).id;
+        if (id == null || id == undefined || id == 0) {
+            _alert("请选择数据", "warning");
+            return false;
+        }
+        _open({
+            type: 0,
+            id: "ChangeObject",
+            title: "修改消费对象",
+            content: $("#ObjectWindow").html(),
+            width: 800,
+            height: 400,
+            btn: ["提交", "关闭"],
+            yes: function (index, layero) {
+                $.ajax({
+                    url: "/Setting/UpdateObject",
+                    data: $("#typeForm").serializeArray(),
+                    type: "POST",
+                    success: function (res) {
+                        _alert(res.msg, "ok");
+                        _frame("#mytable").target("reload");
+                    }
+                });
+            }
+        });
+        $.ajax({
+            url: '/Setting/GetObject',
+            data: { id: id },
+            async:false,
+            type: 'Get',
+            success: function (res) {
+                _form("#typeForm").serializeArray(res.model);
+            }
+        });
+    }
+
+    function dele() {
+        var rowid = _frame("#mytable").getSelRowid();
+        var id = _frame("#mytable").getData(rowid).id;
+        if (id == null || id == undefined || id == 0) {
+            _alert("请选择数据", "error");
+            return;
+        }
+        if (!confirm("即将删除【" + _frame("#mytable").getData(rowid).name + "】?")) {
+            return;
+        }
+        $.ajax({
+            url: "/Setting/DeleteObject",
+            data: { id: id },
+            type: 'POST',
+            success: function (res) {
+                layer.msg(res.msg, function () {
+                    _frame("#mytable").target("reload");
+                });
+            }
+        });
+    }
+</script>
+

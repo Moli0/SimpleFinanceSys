@@ -36,7 +36,7 @@ namespace SimpleFinanceSys.Controllers
         }
 
         /// <summary>
-        /// 取得登陆的用户信息
+        /// 取得登录的用户信息
         /// </summary>
         /// <returns></returns>
         protected Model.UserInfoModel GetUser()

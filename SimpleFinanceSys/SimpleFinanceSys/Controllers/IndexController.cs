@@ -12,7 +12,7 @@ namespace SimpleFinanceSys.Controllers
         DAL.ChangeRecordDAL dal = new DAL.ChangeRecordDAL();
         //
         // GET: /Index/
-
+        [Helpers.UserLogin]
         public ActionResult Index()
         {
             return View();

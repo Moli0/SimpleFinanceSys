@@ -62,7 +62,7 @@ namespace SimpleFinanceSys.Controllers
                 var user = GetUser();
                 if (user == null)
                 {
-                    return Error("登陆已过期，请重新登陆！");
+                    return Error("登录已过期，请重新登录！");
                 }
                 DAL.Base_TypeDAL dal = new DAL.Base_TypeDAL();
                 List<Model.Base_TypeModel> models = new List<Model.Base_TypeModel>();
@@ -82,7 +82,7 @@ namespace SimpleFinanceSys.Controllers
                 var user = GetUser();
                 if (user == null)
                 {
-                    return Error("登陆已过期，请重新登陆！");
+                    return Error("登录已过期，请重新登录！");
                 }
                 List<Model.Base_ObjectModel> models = new List<Model.Base_ObjectModel>();
                 DAL.Base_ObjectDAL dal = new DAL.Base_ObjectDAL();
@@ -99,7 +99,7 @@ namespace SimpleFinanceSys.Controllers
         public ActionResult AddType(string name,int sort ) {
             var user = GetUser();
             if (user == null) {
-                return Error("登陆过期，请重新登陆！");
+                return Error("登录过期，请重新登录！");
             }
             Model.Base_TypeModel model = new Model.Base_TypeModel();
             DAL.Base_TypeDAL dal = new DAL.Base_TypeDAL();
@@ -124,7 +124,7 @@ namespace SimpleFinanceSys.Controllers
             var user = GetUser();
             if (user == null)
             {
-                return Error("登陆过期，请重新登陆！");
+                return Error("登录过期，请重新登录！");
             }
             Model.Base_ObjectModel model = new Model.Base_ObjectModel();
             DAL.Base_ObjectDAL dal = new DAL.Base_ObjectDAL();
