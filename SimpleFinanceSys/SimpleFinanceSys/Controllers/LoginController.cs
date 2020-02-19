@@ -63,7 +63,7 @@ namespace SimpleFinanceSys.Controllers
                 cookie.Expires = time.AddMinutes(600);
                 cookie.HttpOnly = true;
                 HttpContext.Response.Cookies.Add(cookie);
-                cookie = new HttpCookie("sign", Helpers.Helper.MD5(userid + time + "SFS") + Helpers.Helper.MD5(userid + "SFS"));
+                cookie = new HttpCookie("sign", Helpers.Helper.MD5(userid + time.ToString("yyyy-MM-dd HH:mm:ss.fff") + "SFS") + Helpers.Helper.MD5(userid + "SFS"));
                 cookie.Expires = time.AddMinutes(600);
                 cookie.HttpOnly = true;
                 HttpContext.Response.Cookies.Add(cookie);

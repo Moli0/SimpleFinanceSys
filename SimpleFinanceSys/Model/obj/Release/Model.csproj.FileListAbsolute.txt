@@ -1,5 +1,0 @@
-E:\毕设代做\16信管张雯丽\project\SimpleFinanceSys\SimpleFinanceSys\Model\bin\Release\Model.dll
-E:\毕设代做\16信管张雯丽\project\SimpleFinanceSys\SimpleFinanceSys\Model\bin\Release\Model.pdb
-E:\毕设代做\16信管张雯丽\project\SimpleFinanceSys\SimpleFinanceSys\Model\obj\Release\Model.csprojAssemblyReference.cache
-E:\毕设代做\16信管张雯丽\project\SimpleFinanceSys\SimpleFinanceSys\Model\obj\Release\Model.dll
-E:\毕设代做\16信管张雯丽\project\SimpleFinanceSys\SimpleFinanceSys\Model\obj\Release\Model.pdb

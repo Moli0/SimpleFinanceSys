@@ -28,7 +28,7 @@ namespace SimpleFinanceSys.Controllers
             string userCookie = helper.GetCookies("user");
             DateTime cookieTime = DateTime.Now;
             string encodeCookie = string.Empty;
-            encodeCookie = Helpers.Helper.MD5(userCookie + cookieTime + "SFS") + Helpers.Helper.MD5(userCookie + "SFS");
+            encodeCookie = Helpers.Helper.MD5(userCookie + cookieTime.ToString("yyyy-MM-dd HH:mm:ss.fff") + "SFS") + Helpers.Helper.MD5(userCookie + "SFS");
             var time = DateTime.Now;
             helper.UpdateCookies("user", userCookie, 600);
             helper.UpdateCookies("sign", encodeCookie, 600);

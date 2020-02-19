@@ -33,7 +33,8 @@ namespace Helpers
             {
                 string encodeCookie = helper.GetCookies("sign");
                 string loginTime = helper.GetCookies("loginTime");
-                if (encodeCookie != Helpers.Helper.MD5(userid + loginTime + "SFS") + Helpers.Helper.MD5(userid + "SFS")) {
+                string key = Helpers.Helper.MD5(userid + loginTime + "SFS") + Helpers.Helper.MD5(userid + "SFS");
+                if (encodeCookie != key) {
                     helper.DeleteCookies("user");
                     helper.DeleteCookies("sign");
                     helper.DeleteCookies("loginTime");
